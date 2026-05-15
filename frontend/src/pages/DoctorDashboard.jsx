@@ -258,15 +258,33 @@ const DoctorDashboard = () => {
             </div>
             <div className="divide-y divide-slate-100">
               {queue.activeTokens.slice(0, 5).map((p, idx) => (
-                <div key={p.token} className="p-4 flex items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+                <div 
+                  key={p.token} 
+                  className={`p-4 flex items-center justify-between transition-all ${
+                    p.isEmergency 
+                    ? 'bg-red-50 border-l-4 border-red-500 animate-pulse' 
+                    : 'opacity-80 hover:opacity-100'
+                  }`}
+                >
                   <div className="flex items-center space-x-4">
                     <span className="text-xs font-bold text-slate-400">#{idx + 1}</span>
-                    <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center font-bold text-slate-600">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold ${
+                      p.isEmergency ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-600'
+                    }`}>
                       {p.token}
                     </div>
                     <div>
-                      <p className="font-bold text-slate-700 text-sm">{p.name}</p>
-                      <p className="text-[10px] text-slate-400">Wait: {p.estimatedWait}m</p>
+                      <div className="flex items-center space-x-2">
+                        <p className="font-bold text-slate-700 text-sm">{p.name}</p>
+                        {p.isEmergency && (
+                          <span className="bg-red-100 text-red-600 text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">
+                            Urgent AI
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[10px] text-slate-400">
+                        {p.isEmergency ? 'Needs Immediate Attention' : `Wait: ${p.estimatedWait}m`}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -298,7 +316,14 @@ const DoctorDashboard = () => {
                       <span className="text-4xl font-black">{queue.currentServing.token}</span>
                     </div>
                     <div>
-                      <h2 className="text-3xl font-black text-slate-800 mb-1">{queue.currentServing.name}</h2>
+                      <div className="flex items-center space-x-3 mb-1">
+                        <h2 className="text-3xl font-black text-slate-800">{queue.currentServing.name}</h2>
+                        {queue.currentServing.isEmergency && (
+                          <span className="bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-full animate-bounce shadow-lg shadow-red-200 uppercase tracking-widest">
+                            EMERGENCY CASE
+                          </span>
+                        )}
+                      </div>
                       <div className="flex items-center space-x-4 text-slate-500">
                         <span className="flex items-center"><Clock size={16} className="mr-1" /> {queue.currentServing.phone}</span>
                         <span className="flex items-center"><Timer size={16} className="mr-1" /> Started at {new Date(queue.currentServing.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>

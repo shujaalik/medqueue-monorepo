@@ -2,6 +2,7 @@ const { db } = require('../config/firebase');
 const Clinic = require('../models/Clinic');
 const PatientHistory = require('../models/PatientHistory');
 const { sendWhatsAppNotification } = require('./whatsappService');
+const { analyzeEmergency } = require('./aiService');
 
 const getQueueRef = (clinicId) => db().ref(`queues/${clinicId}`);
 
@@ -18,7 +19,12 @@ const registerPatient = async (clinicId, patientData) => {
   const avgWait = clinic ? clinic.averageConsultationTime : 15;
   const estimatedWait = (queueData.activeTokens?.length || 0) * avgWait;
 
-  // Calculate Expected Time (Current Time + estimatedWait)
+  // AI Triage Analysis
+  let triageResult = { priority: 'NORMAL', reason: '' };
+  if (patientData.symptoms) {
+    triageResult = await analyzeEmergency(patientData.symptoms);
+  }
+
   const now = new Date();
   const expectedDate = new Date(now.getTime() + estimatedWait * 60000);
   const expectedTime = expectedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -27,15 +33,18 @@ const registerPatient = async (clinicId, patientData) => {
     token,
     name: patientData.name,
     phone: patientData.phone,
+    symptoms: patientData.symptoms || '',
     status: 'Waiting',
-    estimatedWait,
-    expectedTime,
+    estimatedWait: triageResult.priority === 'URGENT' ? 0 : estimatedWait,
+    expectedTime: triageResult.priority === 'URGENT' ? 'ASAP' : expectedTime,
     notificationType: patientData.notificationType || 'WhatsApp',
-    isEmergency: patientData.isEmergency || false,
+    isEmergency: triageResult.priority === 'URGENT' || patientData.isEmergency || false,
+    triageReason: triageResult.reason,
     arrivalTime: now.toISOString(),
   };
 
   if (newPatient.isEmergency) {
+    // Put at top of waiting list
     queueData.activeTokens = [newPatient, ...(queueData.activeTokens || [])];
   } else {
     queueData.activeTokens = [...(queueData.activeTokens || []), newPatient];
@@ -45,11 +54,14 @@ const registerPatient = async (clinicId, patientData) => {
     lastToken: newTokenNum,
     activeTokens: queueData.activeTokens,
   });
-  console.log('Backend: Token generated:', token);
 
-  // Send Instant Welcome Message for testing
+  // Notifications
   if (newPatient.notificationType === 'WhatsApp') {
-    sendWhatsAppNotification(newPatient.phone, `Hi ${newPatient.name}, your token is ${token}. Your turn is expected at ${expectedTime}. Track live: http://localhost:5173/status/${clinicId}/${token}`);
+    const message = newPatient.isEmergency 
+      ? `🚨 EMERGENCY ALERT: Hi ${newPatient.name}, our AI has detected urgent symptoms. You have been moved to the TOP of the queue. Please proceed to the desk immediately.`
+      : `Hi ${newPatient.name}, your token is ${token}. Your turn is expected at ${expectedTime}. Track live: http://localhost:5173/status/${clinicId}/${token}`;
+    
+    sendWhatsAppNotification(newPatient.phone, message);
   }
 
   return newPatient;

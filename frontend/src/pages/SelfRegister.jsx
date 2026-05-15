@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { UserPlus, Phone, CheckCircle2, ChevronRight, Activity, ArrowLeft } from 'lucide-react';
+import { UserPlus, Phone, CheckCircle2, ChevronRight, Activity, ArrowLeft, Stethoscope } from 'lucide-react';
 
 const SelfRegister = () => {
   const { clinicId } = useParams();
   const navigate = useNavigate();
   const [clinic, setClinic] = useState(null);
-  const [formData, setFormData] = useState({ name: '', phone: '', notificationType: 'WhatsApp' });
+  const [formData, setFormData] = useState({ name: '', phone: '', symptoms: '', notificationType: 'WhatsApp' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registeredToken, setRegisteredToken] = useState(null);
 
@@ -111,6 +111,20 @@ const SelfRegister = () => {
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 ml-1">Symptoms / Chief Complaint</label>
+              <div className="relative">
+                <Stethoscope className="absolute left-4 top-6 text-slate-500" size={18} />
+                <textarea 
+                  placeholder="e.g. Severe chest pain, high fever..."
+                  className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl py-4 pl-12 pr-4 text-white font-bold focus:outline-none focus:border-primary-500 transition-all shadow-inner min-h-[100px]"
+                  value={formData.symptoms}
+                  onChange={(e) => setFormData({...formData, symptoms: e.target.value})}
+                />
+              </div>
+              <p className="text-[9px] text-slate-500 mt-2 ml-1 italic">* AI will prioritize urgent symptoms automatically.</p>
             </div>
 
             <div className="pt-4">
