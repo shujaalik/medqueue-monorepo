@@ -9,12 +9,10 @@ const initWhatsApp = () => {
     authStrategy: new LocalAuth(),
     puppeteer: {
       args: [
-        '--no-sandbox', 
+        '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-gpu',
         '--disable-dev-shm-usage',
-        '--single-process',
-        '--no-zygote',
         '--disable-accelerated-2d-canvas',
         '--disable-software-rasterizer',
         '--disable-extensions'
@@ -57,7 +55,7 @@ const sendWhatsAppNotification = async (phoneNumber, message) => {
     if (formattedNumber.startsWith('0')) {
       formattedNumber = '92' + formattedNumber.substring(1);
     }
-    
+
     // Ensure it has a country code if it doesn't already
     if (formattedNumber.length === 10) {
       formattedNumber = '92' + formattedNumber;
@@ -65,7 +63,7 @@ const sendWhatsAppNotification = async (phoneNumber, message) => {
 
     const chatId = formattedNumber + '@c.us';
     console.log(`📤 Attempting to send WhatsApp to: ${chatId}`);
-    
+
     await client.sendMessage(chatId, message);
     console.log(`✅ WhatsApp sent successfully to ${formattedNumber}`);
     return true;
