@@ -8,8 +8,14 @@ const initWhatsApp = () => {
   client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: [
+        '--no-sandbox', 
+        '--disable-setuid-sandbox',
+        '--disable-gpu',
+        '--disable-dev-shm-usage'
+      ],
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+      protocolTimeout: 0, // Disables protocol timeout to prevent timeout crashes on slow startups
     }
   });
 

@@ -6,6 +6,15 @@ const addUser = async (req, res) => {
   try {
     const { name, email, password, role, clinicId } = req.body;
     
+    // Security check: ClinicAdmin is restricted to Doctor/Receptionist roles bound to their own clinic
+    let targetClinicId = clinicId;
+    if (req.user && req.user.role === 'ClinicAdmin') {
+      targetClinicId = req.user.clinicId.toString();
+      if (role !== 'Doctor' && role !== 'Receptionist') {
+        return res.status(403).json({ message: 'Not authorized to create this role' });
+      }
+    }
+
     // 1. Create in Firebase Auth
     const firebaseUser = await admin.auth().createUser({
       email,
@@ -19,7 +28,7 @@ const addUser = async (req, res) => {
       email,
       password, // Still keep hash in DB as backup, though Firebase is primary
       role,
-      clinicId,
+      clinicId: targetClinicId,
     });
 
     res.status(201).json({
@@ -38,6 +47,10 @@ const toggleUserStatus = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (user) {
+      // Security check: ClinicAdmin is restricted to managing staff in their own clinic
+      if (req.user && req.user.role === 'ClinicAdmin' && (!user.clinicId || user.clinicId.toString() !== req.user.clinicId.toString())) {
+        return res.status(403).json({ message: 'Not authorized to manage this staff' });
+      }
       user.isActive = !user.isActive;
       await user.save();
       res.json({ message: `User status updated to ${user.isActive ? 'Active' : 'Suspended'}` });
@@ -51,6 +64,10 @@ const toggleUserStatus = async (req, res) => {
 
 const getClinics = async (req, res) => {
   try {
+    if (req.user && req.user.role === 'ClinicAdmin') {
+      const clinics = await Clinic.find({ _id: req.user.clinicId });
+      return res.json(clinics);
+    }
     const clinics = await Clinic.find({});
     res.json(clinics);
   } catch (error) {
@@ -93,7 +110,14 @@ const updateClinic = async (req, res) => {
 
 const getStaff = async (req, res) => {
   try {
-    const users = await User.find(req.params.clinicId ? { clinicId: req.params.clinicId } : {});
+    let queryClinicId = req.params.clinicId;
+    
+    // Security check: ClinicAdmin is restricted to their own clinic's staff
+    if (req.user && req.user.role === 'ClinicAdmin') {
+      queryClinicId = req.user.clinicId.toString();
+    }
+    
+    const users = await User.find(queryClinicId ? { clinicId: queryClinicId } : {});
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });

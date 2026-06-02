@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
+import ClinicAdminDashboard from './pages/ClinicAdminDashboard';
 import DoctorDashboard from './pages/DoctorDashboard';
 import ReceptionistDashboard from './pages/ReceptionistDashboard';
 import PublicDisplay from './pages/PublicDisplay';
 import PatientStatus from './pages/PatientStatus';
-import Welcome from './pages/Welcome';
+import Landing from './pages/Landing';
 import SelfRegister from './pages/SelfRegister';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -26,7 +27,7 @@ function App() {
       <Router>
         <div className="min-h-screen bg-slate-50">
           <Routes>
-            <Route path="/" element={<Welcome />} />
+            <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/display/:clinicId" element={<PublicDisplay />} />
             <Route path="/status/:clinicId/:token" element={<PatientStatus />} />
@@ -35,8 +36,17 @@ function App() {
             <Route 
               path="/admin" 
               element={
-                <ProtectedRoute allowedRoles={['Admin']}>
+                <ProtectedRoute allowedRoles={['Admin', 'SuperAdmin']}>
                   <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/clinic-admin" 
+              element={
+                <ProtectedRoute allowedRoles={['ClinicAdmin']}>
+                  <ClinicAdminDashboard />
                 </ProtectedRoute>
               } 
             />

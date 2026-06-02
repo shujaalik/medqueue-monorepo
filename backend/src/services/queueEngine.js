@@ -166,7 +166,7 @@ const resetQueue = async (clinicId) => {
   }
 };
 
-const completeCurrentPatient = async (clinicId, doctorId) => {
+const completeCurrentPatient = async (clinicId, doctorId, reportData = {}) => {
   const queueRef = getQueueRef(clinicId);
   const snapshot = await queueRef.once('value');
   const queueData = snapshot.val();
@@ -181,12 +181,51 @@ const completeCurrentPatient = async (clinicId, doctorId) => {
     status: 'Completed',
     doctorId,
     clinicId,
-    consultationDuration: completedPatient.startTime ? Math.round((new Date() - new Date(completedPatient.startTime)) / 60000) : 0
+    consultationDuration: completedPatient.startTime ? Math.round((new Date() - new Date(completedPatient.startTime)) / 60000) : 0,
+    symptoms: reportData.symptoms || [],
+    diagnosis: reportData.diagnosis || '',
+    prescription: reportData.prescription || [],
+    advice: reportData.advice || [],
+    suggestedTests: reportData.suggestedTests || [],
   });
 
   await queueRef.update({
     currentServing: null
   });
+
+  // Send WhatsApp Digital Report Summary
+  if (completedPatient.notificationType === 'WhatsApp' || true) {
+    const formattedSymptoms = reportData.symptoms?.length > 0 ? reportData.symptoms.map(s => `• ${s}`).join('\n') : '• None recorded';
+    const formattedPrescription = reportData.prescription?.length > 0 ? reportData.prescription.map(p => `• ${p}`).join('\n') : '• None recorded';
+    const formattedAdvice = reportData.advice?.length > 0 ? reportData.advice.map(a => `• ${a}`).join('\n') : '• None recorded';
+    const formattedTests = reportData.suggestedTests?.length > 0 ? reportData.suggestedTests.map(t => `• ${t}`).join('\n') : '• None recorded';
+
+    const message = `📋 *MEDQUEUE DIGITAL CONSULTATION REPORT*
+----------------------------------------
+*Patient Name:* ${completedPatient.name}
+*Token:* ${completedPatient.token}
+*Date:* ${new Date().toLocaleDateString()}
+
+🩺 *DIAGNOSIS:*
+${reportData.diagnosis || 'Under clinical evaluation'}
+
+⚠️ *SYMPTOMS:*
+${formattedSymptoms}
+
+💊 *PRESCRIPTION / MEDS:*
+${formattedPrescription}
+
+📋 *CLINICAL ADVICE:*
+${formattedAdvice}
+
+🔬 *SUGGESTED TESTS:*
+${formattedTests}
+
+----------------------------------------
+Thank you for choosing MedQueue! This digital prescription acts as an authentic consultation receipt.`;
+
+    sendWhatsAppNotification(completedPatient.phone, message);
+  }
 
   return completedPatient;
 };

@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
       required: true,
-      enum: ['Admin', 'Doctor', 'Receptionist'],
+      enum: ['SuperAdmin', 'ClinicAdmin', 'Doctor', 'Receptionist', 'Admin'],
     },
     clinicId: { type: mongoose.Schema.Types.ObjectId, ref: 'Clinic' },
     isActive: { type: Boolean, default: true },

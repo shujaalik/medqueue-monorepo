@@ -1,4 +1,4 @@
-const { expandMedicalNotes } = require('../services/aiService');
+const { expandMedicalNotes, discussMedicalNotes } = require('../services/aiService');
 
 const getExpandedNotes = async (req, res) => {
   try {
@@ -13,4 +13,17 @@ const getExpandedNotes = async (req, res) => {
   }
 };
 
-module.exports = { getExpandedNotes };
+const consultAIScribe = async (req, res) => {
+  try {
+    const { currentReport, query, shorthand } = req.body;
+    if (!query) {
+      return res.status(400).json({ message: 'Query is required' });
+    }
+    const discussion = await discussMedicalNotes(currentReport, query, shorthand);
+    res.json(discussion);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { getExpandedNotes, consultAIScribe };

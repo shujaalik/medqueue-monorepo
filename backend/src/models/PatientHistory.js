@@ -14,6 +14,11 @@ const patientHistorySchema = mongoose.Schema(
     consultationDuration: { type: Number }, // in minutes
     doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     clinicId: { type: mongoose.Schema.Types.ObjectId, ref: 'Clinic' },
+    symptoms: [String],
+    diagnosis: { type: String },
+    prescription: [String],
+    advice: [String],
+    suggestedTests: [String],
   },
   { timestamps: true }
 );

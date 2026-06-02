@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { addPatient, nextPatient, setAbsent, clearQueue, finishSession, setBreak } = require('../controllers/queueController');
+const { addPatient, nextPatient, setAbsent, clearQueue, finishSession, setBreak, getClinicsPublic } = require('../controllers/queueController');
 const { protect } = require('../middleware/authMiddleware');
 
+router.get('/clinics', getClinicsPublic);
 router.post('/register', addPatient);
 router.post('/next', protect, nextPatient);
 router.post('/absent', protect, setAbsent);

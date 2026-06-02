@@ -6,6 +6,7 @@ const {
   completeCurrentPatient, 
   toggleBreak 
 } = require('../services/queueEngine');
+const Clinic = require('../models/Clinic');
 
 const addPatient = async (req, res) => {
   try {
@@ -53,9 +54,9 @@ const clearQueue = async (req, res) => {
 
 const finishSession = async (req, res) => {
   try {
-    const { clinicId } = req.body;
+    const { clinicId, report } = req.body;
     const doctorId = req.user._id;
-    const patient = await completeCurrentPatient(clinicId, doctorId);
+    const patient = await completeCurrentPatient(clinicId, doctorId, report);
     res.json({ message: 'Session completed', patient });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -72,11 +73,21 @@ const setBreak = async (req, res) => {
   }
 };
 
+const getClinicsPublic = async (req, res) => {
+  try {
+    const clinics = await Clinic.find({}).select('name');
+    res.json(clinics);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   addPatient,
   nextPatient,
   setAbsent,
   clearQueue,
   finishSession,
-  setBreak
+  setBreak,
+  getClinicsPublic
 };
