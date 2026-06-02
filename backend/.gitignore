@@ -3,3 +3,7 @@ node_modules/
 serviceAccountKey.json
 *.log
 .wwebjs_auth/
+.wwebjs_cache/
+.cache/
+.puppeteer/
+

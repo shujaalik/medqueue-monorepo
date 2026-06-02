@@ -12,7 +12,12 @@ const initWhatsApp = () => {
         '--no-sandbox', 
         '--disable-setuid-sandbox',
         '--disable-gpu',
-        '--disable-dev-shm-usage'
+        '--disable-dev-shm-usage',
+        '--single-process',
+        '--no-zygote',
+        '--disable-accelerated-2d-canvas',
+        '--disable-software-rasterizer',
+        '--disable-extensions'
       ],
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
       protocolTimeout: 0, // Disables protocol timeout to prevent timeout crashes on slow startups

@@ -4,7 +4,7 @@
   "description": "Backend for MedQueue Management System",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node --max-old-space-size=256 src/server.js",
     "dev": "nodemon src/server.js",
     "seed": "node scripts/seed.js",
     "build": "npm install && npx puppeteer browsers install chrome"
