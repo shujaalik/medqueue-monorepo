@@ -28,7 +28,7 @@ const PatientStatus = () => {
       const data = snapshot.val();
       if (data) {
         setQueue({
-          activeTokens: data.activeTokens || [],
+          activeTokens: data.activeTokens ? Object.values(data.activeTokens) : [],
           currentServing: data.currentServing || null,
           isBreak: data.isBreak || false
         });
