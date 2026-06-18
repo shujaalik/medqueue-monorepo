@@ -209,26 +209,48 @@ const ReceptionistDashboard = () => {
                 queue.activeTokens.map((p) => (
                   <div key={p.token} className={`p-6 flex items-center justify-between hover:bg-slate-50/50 transition-colors ${p.isEmergency ? 'bg-red-50/30' : ''}`}>
                     <div className="flex items-center space-x-6">
-                      <div className={`w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black shadow-sm border ${p.isEmergency ? 'bg-red-500 border-red-600 text-white shadow-red-200' : 'bg-emerald-50 border-emerald-100 text-emerald-700 shadow-emerald-50'}`}>
+                      <div className={`w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black shadow-sm border ${
+                        p.isEmergency 
+                          ? p.severityScore >= 8
+                            ? "bg-gradient-to-br from-red-600 to-rose-950 text-white border-red-500 shadow-red-200"
+                            : p.severityScore >= 5
+                              ? "bg-gradient-to-br from-orange-500 to-red-600 text-white border-orange-400 shadow-orange-200 animate-pulse"
+                              : "bg-gradient-to-br from-amber-400 to-orange-500 text-white border-amber-300 shadow-amber-200"
+                          : 'bg-emerald-50 border-emerald-100 text-emerald-700 shadow-emerald-50'
+                      }`}>
                         <span className="text-[9px] uppercase tracking-wider opacity-90">Token</span>
                         <span className="text-lg leading-tight mt-0.5">{p.token}</span>
                       </div>
                       <div>
                         <div className="flex items-center">
                           <h3 className="font-extrabold text-slate-800 text-base">{p.name}</h3>
-                          {p.isEmergency && <span className="ml-2.5 bg-red-100 text-red-600 text-[8px] font-black uppercase px-2 py-0.5 rounded-md border border-red-200">Emergency</span>}
+                          {p.isEmergency && (
+                            <span className={`ml-2.5 text-[8px] font-black uppercase px-2 py-0.5 rounded-md border text-white ${
+                              p.severityScore >= 8
+                                ? "bg-gradient-to-r from-red-600 to-rose-950 border-red-500"
+                                : p.severityScore >= 5
+                                  ? "bg-gradient-to-r from-orange-500 to-red-600 border-orange-400"
+                                  : "bg-gradient-to-r from-amber-400 to-orange-500 border-amber-300"
+                            }`}>
+                              Emergency (L{p.severityScore || 5})
+                            </span>
+                          )}
                         </div>
                         <div className="flex items-center text-xs text-slate-400 mt-1 font-semibold">
                           <Clock size={12} className="mr-1 text-emerald-500" />
-                          {p.estimatedWait} mins wait • Arrived {new Date(p.arrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          {p.isEmergency ? (
+                            <span>ASAP • Arrived {new Date(p.arrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                          ) : (
+                            <span>{p.estimatedWait} mins wait (ETA: {p.expectedTime || '--:--'}) • Arrived {new Date(p.arrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                          )}
                         </div>
                       </div>
                     </div>
                     <div className="flex space-x-2">
                       <button
                         onClick={() => markAbsent(p.token)}
-                        disabled={absentTokenLoading === p.token}
-                        className="px-4 py-2 text-xs font-black text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-slate-200/60 rounded-xl transition-all"
+                        disabled={absentTokenLoading !== null}
+                        className="px-4 py-2 text-xs font-black text-slate-500 hover:text-slate-800 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed border border-slate-200/60 rounded-xl transition-all"
                       >
                         <span className="inline-flex items-center justify-center gap-2">
                           {absentTokenLoading === p.token && <span className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />}

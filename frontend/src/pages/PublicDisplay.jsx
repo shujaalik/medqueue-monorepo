@@ -12,9 +12,10 @@ const PublicDisplay = () => {
     const queueRef = ref(db, `queues/${clinicId}`);
     const unsubscribe = onValue(queueRef, (snapshot) => {
       const data = snapshot.val();
+      console.log("data: ", `queues/${clinicId}`)
       if (data) {
         setQueue({
-          activeTokens: data.activeTokens ? Object.values(data.activeTokens) : [],
+          activeTokens: data.activeTokens ? Object.values(data.activeTokens).filter(Boolean) : [],
           currentServing: data.currentServing || null,
           isBreak: data.isBreak || false
         });
@@ -73,7 +74,7 @@ const PublicDisplay = () => {
           <div className="absolute top-12 text-[#0d6e42] font-black text-3xl uppercase tracking-[0.4em] animate-pulse">
             Now Serving
           </div>
-          
+
           {queue.currentServing ? (
             <div className="flex flex-col items-center">
               <div className="text-[26rem] font-black leading-none tracking-tighter text-white drop-shadow-[0_0_80px_rgba(16,185,129,0.35)]">
@@ -109,11 +110,23 @@ const PublicDisplay = () => {
                     {p.name}
                   </span>
                 </div>
-                {p.isEmergency && (
-                  <span className="bg-red-950/80 text-red-400 text-sm font-black px-4 py-1.5 rounded-2xl border border-red-800 animate-bounce">
-                    URGENT
-                  </span>
-                )}
+                <div className="flex items-center space-x-4">
+                  {p.isEmergency ? (
+                    <span className={`text-base font-black px-4 py-2 rounded-2xl border animate-pulse ${
+                      p.severityScore >= 8 
+                        ? "bg-gradient-to-r from-red-600 to-rose-950 text-white border-red-500 shadow-lg shadow-red-500/40" 
+                        : p.severityScore >= 5 
+                          ? "bg-gradient-to-r from-orange-500 to-red-600 text-white border-orange-400 shadow-md shadow-orange-500/30" 
+                          : "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-amber-300 shadow-sm shadow-amber-500/20"
+                    }`}>
+                      EMERGENCY (L{p.severityScore || 5})
+                    </span>
+                  ) : (
+                    <span className="bg-[#0b2419] text-emerald-400 text-2xl font-mono font-black px-4 py-2 rounded-xl border border-[#0d6e42]/30">
+                      {p.expectedTime || '--:--'}
+                    </span>
+                  )}
+                </div>
               </div>
             ))}
             {queue.activeTokens.length === 0 && (

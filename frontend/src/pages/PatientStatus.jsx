@@ -28,7 +28,7 @@ const PatientStatus = () => {
       const data = snapshot.val();
       if (data) {
         setQueue({
-          activeTokens: data.activeTokens ? Object.values(data.activeTokens) : [],
+          activeTokens: data.activeTokens ? Object.values(data.activeTokens).filter(Boolean) : [],
           currentServing: data.currentServing || null,
           isBreak: data.isBreak || false
         });
@@ -75,9 +75,21 @@ const PatientStatus = () => {
                 Your Turn Now
               </span>
             ) : patient ? (
-              <span className="bg-emerald-50 text-emerald-600 px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest">
-                Waiting in Queue
-              </span>
+              patient.isEmergency ? (
+                <span className={`px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest text-white border animate-pulse ${
+                  patient.severityScore >= 8
+                    ? "bg-gradient-to-r from-red-600 to-rose-950 border-red-500 shadow-lg shadow-red-500/20"
+                    : patient.severityScore >= 5
+                      ? "bg-gradient-to-r from-orange-500 to-red-600 border-orange-400 shadow-md shadow-orange-500/15"
+                      : "bg-gradient-to-r from-amber-400 to-orange-500 border-amber-300 shadow-sm shadow-amber-500/10"
+                }`}>
+                  Urgent Case (L{patient.severityScore || 5})
+                </span>
+              ) : (
+                <span className="bg-emerald-50 text-emerald-600 px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest">
+                  Waiting in Queue
+                </span>
+              )
             ) : (
               <span className="bg-slate-100 text-slate-400 px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest">
                 Inactive Token
@@ -110,7 +122,7 @@ const PatientStatus = () => {
                   <span className={isServing ? "text-emerald-600" : ""}>Consultation</span>
                 </div>
                 <div className="h-6 bg-slate-100 rounded-full overflow-hidden p-1.5 border border-slate-200/50">
-                  <div 
+                  <div
                     className={`h-full rounded-full transition-all duration-1000 ease-out ${isServing ? 'bg-emerald-500' : 'bg-emerald-500 shadow-md shadow-emerald-200'}`}
                     style={{ width: isServing ? '100%' : `${progress}%` }}
                   ></div>

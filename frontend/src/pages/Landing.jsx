@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { 
   User, ClipboardList, Monitor, ChevronRight, HeartPulse, Search, 
   Zap, CheckCircle2, ShieldAlert, Users, Calendar, ArrowRight, BarChart3, Bot

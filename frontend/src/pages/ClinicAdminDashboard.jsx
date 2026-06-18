@@ -89,6 +89,16 @@ const ClinicAdminDashboard = () => {
     }
   };
 
+  const handleToggleUserStatus = async (userId) => {
+    try {
+      const headers = { Authorization: `Bearer ${user.token}` };
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/admin/users/${userId}/toggle`, {}, { headers });
+      await fetchClinicData();
+    } catch (err) {
+      alert('Error toggling staff status');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f4fbf7] flex items-center justify-center">
@@ -477,6 +487,7 @@ const ClinicAdminDashboard = () => {
                     <th className="p-5 text-[9px] font-black text-slate-400 uppercase tracking-widest">Email</th>
                     <th className="p-5 text-[9px] font-black text-slate-400 uppercase tracking-widest">Role</th>
                     <th className="p-5 text-[9px] font-black text-slate-400 uppercase tracking-widest">Security Status</th>
+                    <th className="p-5 text-[9px] font-black text-slate-400 uppercase tracking-widest text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-50 text-xs">
@@ -493,15 +504,31 @@ const ClinicAdminDashboard = () => {
                         </span>
                       </td>
                       <td className="p-5">
-                        <span className="flex items-center text-[10px] font-black text-emerald-600 uppercase tracking-wider">
-                          <ShieldCheck size={14} className="mr-1.5" /> ACTIVE CREDENTIALS
+                        <span className={`flex items-center text-[10px] font-black uppercase tracking-wider ${member.isActive !== false ? 'text-emerald-600' : 'text-red-500'}`}>
+                          <ShieldCheck size={14} className="mr-1.5" /> {member.isActive !== false ? 'ACTIVE CREDENTIALS' : 'SUSPENDED CREDENTIALS'}
                         </span>
+                      </td>
+                      <td className="p-5 text-right">
+                        <button 
+                          onClick={() => {
+                            if (window.confirm(`Are you sure you want to ${member.isActive !== false ? 'suspend' : 'activate'} ${member.name}?`)) {
+                              handleToggleUserStatus(member._id);
+                            }
+                          }}
+                          className={`text-[9px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl transition-all border ${
+                            member.isActive !== false 
+                              ? 'bg-red-50 border-red-100 text-red-600 hover:bg-red-100' 
+                              : 'bg-emerald-50 border-emerald-100 text-emerald-600 hover:bg-emerald-100'
+                          }`}
+                        >
+                          {member.isActive !== false ? 'Suspend' : 'Activate'}
+                        </button>
                       </td>
                     </tr>
                   ))}
                   {staff.length === 0 && (
                     <tr>
-                      <td colSpan={4} className="p-10 text-center text-slate-400 italic">No registered staff. Create an account to begin.</td>
+                      <td colSpan={5} className="p-10 text-center text-slate-400 italic">No registered staff. Create an account to begin.</td>
                     </tr>
                   )}
                 </tbody>

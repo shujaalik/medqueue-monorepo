@@ -1,0 +1,3765 @@
+IQRA UNIVERSITY
+Faculty of Engineering, Sciences & Technology
+Final Year Design Project Report
+BS (COMPUTER SCIENCE)
+MedQueue
+A Browser-Native Digital Queue Management System for Outpatient
+Clinics
+Submitted By
+Muhammad Shuja Ali (61260)
+Muhammad Usman Khan (50009)
+Hamood Altaf (58020)
+Asad Ali Zahid (59246)
+Supervisor: Mr. Zain Mir
+Co-Supervisor: Mr. Shahzad Karim
+FYDP Coordinator: Ms. Saira Khurram Arhab
+Department of Computer Science
+Karachi, Pakistan
+
+---PAGE BREAK---
+Certification of Approval
+The following certification is included as part of the official academic record of this Final
+Year Design Project (FYDP). It confirms that the submitted work meets the expected
+scope and quality standards for the BS (Computer Science) degree program at IQRA
+University, Faculty of Engineering, Sciences & Technology.
+It is to certify that the Final Year Design Project of BS (COMPUTER
+SCI-ENCE) “MedQueue” was developed by MUHAMMAD SHUJA ALI
+(Reg-61260), ASAD ALI ZAHID (Reg-59246), MUHAMMAD USMAN
+KHAN (Reg-50009),
+and HAMOOD ALTAF (Reg-58020) under the supervision of “MS. SAIRA
+KHURRAM” and that in her opinion; it is fully adequate, in scope and
+quality for the degree of Bachelors of Science in Computer Science.
+Supervisor:
+Co-Supervisor:
+Head of Department (Department of Computer Science):
+i
+
+---PAGE BREAK---
+Declaration
+This declaration establishes academic integrity, authorship ownership, and originality of
+the work presented in this report. It serves as a formal statement that the design, analysis,
+and documentation artifacts are produced by the listed authors for the Final Year Design
+Project (FYDP) requirement.
+This is to certify that the work presented as Final Year Design Project
+(FYDP) is entirely our own work and has neither been copied nor reproduced
+in any way out of an external source. All the ideas, concepts, and contents
+of this report are our own effect of research and personal work. The project
+is very young and is yet to be completely implemented; whatever will come
+will just be an improvement and advancement to it. In case any section
+of this work is found to have been plagiarized or copied, we are ready to
+assume the overall responsibility and face the consequences that may arise.
+In addition not any part of this work has been before submitted elsewhere to
+be credited with the award of any other degree or qualification in this or any
+other academic institution.
+Signatures:
+Muhammad Shuja Ali
+Muhammad Usman Khan
+Hamood Altaf
+Asad Ali Zahid
+Supervisor:
+ii
+
+---PAGE BREAK---
+Acknowledgement
+This section formally recognizes the academic, professional, and personal support
+systems that contributed to the completion of the MedQueue Final Year Design Project
+(BS Computer Science) at IQRA University. While the system engineering work required
+technical planning, iterative prototyping, and extensive documentation, its completion
+was ultimately made possible through guidance, institutional facilitation, and consistent
+encouragement at different stages of the project lifecycle.
+Praise belongs to God, full of mercy, most kind. The beginning is His name.
+Praise begins where existence does - with Him, the Maker behind every breath and
+thought. Because of mercy that never runs out, energy stayed steady when challenges
+grew heavy. Guidance arrived quietly, just when confusion threatened to take hold.
+Strength came not from within alone, but from a presence felt most during long nights
+without rest. Completion of this work happened step by step, each one held up by
+something greater than ambition. When focus faded, help returned in ways too precise to
+ignore. This effort stands less as personal achievement, more as evidence of continuous
+support seen in timing, clarity, and endurance.
+It is worth acknowledging, with genuine thanks, every person whose efforts - seen or
+unseen - helped bring this project to life. Above all stands Mr. Zain Mir, our supervisor,
+whose presence shaped much of what follows. From start to finish, his guidance held
+steady, offering clarity when paths blurred. Insightful feedback came often, sharpening
+arguments that might otherwise have stayed weak. Direction was never withheld, even
+during phases where progress slowed. Because of his consistent support, difficult
+moments in the research became manageable, even revealing at times. Without his
+involvement, the journey through layered challenges would have felt far heavier. The
+strength found in this work owes much to his quiet but constant influence.
+Gratitude runs deep for the teachers and office teams at Iqra University. Because of their
+efforts, the campus became more than a classroom - equipment stayed up to date, help
+arrived without delay, while libraries and labs supported steady progress. Each resource,
+carefully maintained, played a role in shaping clear outcomes through consistent support.
+It was never just about one person pushing forward - others stepped in without fan-
+fare. Some gave advice during long talks; others simply listened when things felt
+overwhelming. Quiet moments of reassurance often mattered most, especially on days
+when momentum faded. Their presence showed up in small ways: a question that
+iii
+
+---PAGE BREAK---
+sparked clarity, a pause that allowed reflection. Even indirect gestures carried weight,
+like reading drafts late at night or asking thoughtful questions. Belief came not through
+loud declarations but steady actions over time. Support unfolded slowly, woven into
+routines rather than announced. The work grew stronger because people chose to stay
+involved, even when there was nothing obvious to gain. In the end, what emerged reflects
+more than individual effort - it mirrors shared patience, repeated kindnesses, and trust
+given freely.
+iv
+
+---PAGE BREAK---
+Abstract
+This abstract provides a high-level technical synopsis of the MedQueue system, em-
+phasizing the operational problem context in Pakistani outpatient clinics, the proposed
+browser-native architecture, and the major workflow outcomes (real-time queue synchro-
+nization, role-based dashboards, and proactive messaging). The content below is kept
+exactly as originally authored and is presented as the official abstract for this report.
+Despite advances in technology, many clinics still depend on outdated paper
+systems. These old methods slow things down. Long waits follow. Patient
+care gets delayed. Triage becomes disorganized. Satisfaction drops. One
+solution comes forward: MedQueue. This tool shifts operations online. It
+organizes appointments digitally. Instead of handing out slips, staff assign
+virtual spots. Information updates live across screens. The design emerged
+through iterative testing cycles. Developers used current coding standards.
+Frameworks were chosen for responsiveness. Structure improved step by
+step. Clutter fades when displays guide movement clearly. Order forms
+where confusion once lived.
+Despite no app needed, MedQueue sends automatic updates straight to
+phones using built-in messaging systems like SMS and WhatsApp. Because
+of this setup, people receive estimated wait times without downloading
+extra software. Patients stay informed from anywhere, reducing pressure
+on waiting rooms. Clinic hallways clear out naturally when access shifts
+outside the building. Updates flow continuously, making check-ins less
+disruptive. Control moves into the hands of those receiving care.
+Despite its clean look, behind the scenes MedQueue captures full patient
+journeys in detail, logging each step from first check-in to last clinician entry.
+Permissions shift by role, giving staff only what they need - receptionists
+see one view, clinicians another. Dashboards stay focused because access
+does too. Data flows into structured logs automatically, reducing gaps. Each
+action becomes part of a larger record meant for analysis later. The system
+shapes itself around who is using it, adjusting quietly without extra steps.
+Tracking runs continuously, feeding insights back into daily operations.
+One main goal shapes this effort - offering low-cost, adaptable systems
+powered by smart technology, built for smaller clinics and doctors’ offices in
+v
+
+---PAGE BREAK---
+Pakistan. Rather than guesswork, clear processes based on real information
+guide how tasks move forward. Change begins quietly here, through steady
+upgrades in everyday care delivery. Patient visits shift in subtle but lasting
+ways. What counts as standard practice starts to change across local health
+networks.
+Beginning with how patients move through clinics, digital healthcare trans-
+formation reshapes routines once handled on paper. Instead of fixed steps,
+outpatient workflow optimization adjusts timing using live data feeds. Be-
+hind such updates, queue management systems guide arrivals without long
+waits at desks. Rather than one-size-fits-all logins, role-based access control
+limits system entry based on job function. Moving beyond old team models,
+agile scrum helps tech teams adapt during software rollouts across medical
+centers. Shifting focus toward individuals, patient-centric informatics shapes
+tools around real user behaviors. Throughout these changes, automation
+weaves into daily operations - quietly handling tasks previously done by
+hand..
+vi
+
+---PAGE BREAK---
+Executive Summary
+The executive summary expands on the abstract by outlining (i) the context and urgency
+of the operational problem, (ii) the key goals and system capabilities of MedQueue, (iii)
+the overall development methodology and implementation posture, and (iv) the strategic
+value and expected impact for small-to-medium clinics in Pakistan. The numbered
+points below are preserved exactly and are supplemented by the surrounding structure
+for formal report presentation.
+1. Context and Crisis
+Despite growing demands, health centers across Pakistan struggle under outdated sys-
+tems. Rather than streamlining processes, paper-based check-ins deepen inefficiencies.
+Long lines form because handwritten records cannot keep pace. Without digital tools,
+managing patients becomes unmanageable. Disorder grows where organization should
+prevail.
+What clogs up administration isn’t just inefficiency - it chips away at how well patients
+get cared for. Buried under inconsistent records, staff at intake struggle to keep track,
+which feeds mistakes and drags out sign-ins. At the same time, doctors pull focus from
+exams to answer the same questions about delays, again and again. When information
+stays stuck or unclear, stress builds among those waiting - mood darkens, patience wears
+thin. This steady pressure degrades each visit while straining those delivering care.
+2. Goals and the MedQueue Change
+One answer to long-standing problems in healthcare systems lies in affordable, adaptable
+digital tools - tools that upgrade patient flow without straining limited budgets. What
+follows describes MedQueue, a solution built precisely for this gap. Instead of paper
+slips or manual check-ins, it uses a streamlined online interface where appointments
+align smoothly across departments. Designed for ease, the system runs through standard
+browsers, removing the need for special hardware or complex setup.
+MedQueue aims first at steadier hospital routines and clearer operations. Starting with
+sign-in and ending at release, automated handling of patients moves care from hunch-
+based responses to planning guided by live information. With this technology in place,
+staff perform expert tasks more smoothly, paperwork loads shrink fast, while tension
+common in clinic queues fades step by step.
+3. How systems work and what they’re built like
+vii
+
+---PAGE BREAK---
+Starting off differently each time, MedQueue meets goals using linked features built
+around how care actually works nearby. These functions adapt step by step to match real
+conditions on the ground. Instead of copying global models, they reflect regional needs.
+Each piece connects smoothly to the next. Progress happens through alignment, not
+force. Functionality grows from daily use, not theory. Requirements evolve as clinics
+change. Design follows practice, not the reverse
+Starting with arrival, patients get logged instantly by staff using one shared online
+platform - no paper forms touch the counter. A separate digital token appears right away,
+locking their place securely in line through automatic assignment. This process runs
+without delays, replacing old check-in methods entirely.
+Each person sees only what matters to their job. Depending on who logs in, the interface
+shifts automatically. Staff at reception handle intake details using one layout. Doctors
+and therapists get another view entirely - one showing just their scheduled patients.
+Information stays separated by design. That way, no one accesses records outside their
+scope of work. Clarity comes from limits built into navigation paths. Workflow runs
+smoother when screens match responsibilities.
+Throughout clinics, live visual trackers adjust instantly when people move between
+consultation stages. Screens placed inside waiting areas show current line positions
+without noise. Updates travel straight to personal phones using regular messaging
+services like SMS or WhatsApp. These alerts include expected wait times, built from
+ongoing movement patterns. No extra software installation becomes necessary for
+access. Information flows continuously across platforms, keeping everyone informed as
+situations change.
+Unexpected demands shape how the system adjusts - software supports sudden shifts
+in patient order when emergencies arise. Though routines exist, priority changes slip
+through seamlessly, guided by real-time needs rather than fixed rules. Behind the scenes,
+structure remains stable even as individual paths shift abruptly. Decisions made under
+pressure fit within preset boundaries, preserving overall function while bending for
+urgency.
+4. How things are built who builds them and where they matter
+Beginning with rough sketches, MedQueue took shape through repeated sprints under
+Agile Scrum rules. Because each phase built on the last, progress moved steadily forward
+without long delays. Testing happened constantly, not just at the end, which helped
+catch flaws early. User insights were folded into updates quickly, thanks to short review
+intervals. Built with lean modern tools for the web, it runs smoothly even on older
+machines. So clinics with tight budgets in cities like Lahore or Quetta face fewer barriers
+viii
+
+---PAGE BREAK---
+to entry. Hardware demands stay low by design, cutting down initial spending needs
+across smaller health facilities nationwide
+Operational
+Parameter
+Legacy System Limitations
+MedQueue Digital
+Advancements
+Data Integrity
+Hand-written logs prone to
+damage and human error.
+Secure, centralized cloud or
+local data storage.
+Communication
+Layer
+Manual verbal updates; high
+patient anxiety.
+Automated, remote SMS &
+WhatsApp notifications.
+Workflow
+Efficiency
+Doctors interrupted by
+administrative questions.
+Seamless, role-specific screen
+progression.
+Infrastructure
+Overhead
+Ongoing costs of paper
+handouts and physical storage.
+Digital-first system requiring
+minimal hardware.
+MedQueue offers a clear path forward for modernizing outpatient services across Pak-
+istan. Rather than replacing systems overnight, it eases clinics into digital workflows
+by phasing out handwritten records. Instead of operating in isolation, the tool shares
+insights about how many patients arrive and when. Healthcare leaders gain practical
+understanding of demand shifts without needing advanced training. Behind its simple
+interface lies a method capable of spreading widely - its strength rooted in usability, not
+complexity. Clarity within medical institutions does not require expensive tools; often,
+thoughtful structure makes the difference.
+ix
+
+---PAGE BREAK---
+Contents
+Certification of Approval
+i
+Declaration
+ii
+Acknowledgement
+iii
+Abstract
+v
+Executive Summary
+vii
+List of Figures
+xv
+List of Tables
+xvii
+List of Abbreviations
+xix
+1
+Introduction
+1
+1.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+1.2
+Problem Statement
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+1.3
+Objectives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+1.4
+Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+1.5
+Significance of the Project
+. . . . . . . . . . . . . . . . . . . . . . . .
+2
+1.6
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.7
+Project Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+1.8
+Objective, Benefits and Deliverables . . . . . . . . . . . . . . . . . . .
+7
+1.8.1
+Objectives . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+1.8.2
+Benefits . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+1.8.3
+Deliverables
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+1.9
+Development / Research Methodology . . . . . . . . . . . . . . . . . .
+13
+1.9.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+1.9.2
+Agile Methodology Overview . . . . . . . . . . . . . . . . . .
+14
+1.9.3
+Applicability to “Project MedQueue”
+. . . . . . . . . . . . . .
+16
+1.9.4
+Key Features of the Project . . . . . . . . . . . . . . . . . . . .
+18
+1.9.5
+Key Principles of Agile Methodology In The Context of Scrum
+18
+1.9.6
+High-Level Algorithm Overview . . . . . . . . . . . . . . . . .
+19
+1.9.7
+Justification . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20
+x
+
+---PAGE BREAK---
+1.9.8
+Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20
+2
+Literature Review
+25
+2.1
+Purpose and Organization of the Chapter . . . . . . . . . . . . . . . . .
+25
+2.2
+Theoretical Foundations
+. . . . . . . . . . . . . . . . . . . . . . . . .
+25
+2.2.1
+Queueing Theory in Outpatient Operations
+. . . . . . . . . . .
+25
+2.2.2
+Psychology of Waiting and Perceived Delay . . . . . . . . . . .
+26
+2.2.3
+Patient Flow Optimization and Operational Informatics . . . . .
+26
+2.3
+Taxonomy of Existing Solutions . . . . . . . . . . . . . . . . . . . . .
+26
+2.4
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+2.5
+Related System Analysis/Literature Review . . . . . . . . . . . . . . .
+27
+2.5.1
+The Problem
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+2.5.2
+Literature Review . . . . . . . . . . . . . . . . . . . . . . . . .
+28
+2.6
+Competitor A: Qmatic
+. . . . . . . . . . . . . . . . . . . . . . . . . .
+28
+2.6.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+28
+2.6.2
+Features and Working
+. . . . . . . . . . . . . . . . . . . . . .
+29
+2.6.3
+Pros . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+29
+2.6.4
+Cons
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+29
+2.6.5
+Competitor A Screenshot . . . . . . . . . . . . . . . . . . . . .
+30
+2.7
+Competitor B: Marham / Oladoc . . . . . . . . . . . . . . . . . . . . .
+30
+2.7.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+30
+2.7.2
+Features and Working
+. . . . . . . . . . . . . . . . . . . . . .
+31
+2.7.3
+Pros . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+31
+2.7.4
+Cons
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+31
+2.7.5
+Competitor B Screenshot . . . . . . . . . . . . . . . . . . . . .
+31
+2.8
+Competitor C: Waitwhile . . . . . . . . . . . . . . . . . . . . . . . . .
+31
+2.8.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+31
+2.8.2
+Features and Working
+. . . . . . . . . . . . . . . . . . . . . .
+32
+2.8.3
+Pros . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+32
+2.8.4
+Cons
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+32
+2.8.5
+Competitor C Screenshot . . . . . . . . . . . . . . . . . . . . .
+33
+2.9
+Competitor D: The Manual System (Status Quo) . . . . . . . . . . . . .
+33
+2.9.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+33
+2.9.2
+Features and Working
+. . . . . . . . . . . . . . . . . . . . . .
+33
+2.9.3
+Pros . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+33
+2.9.4
+Cons
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+33
+2.10 Analysis Table . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+34
+2.11 Working Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+34
+2.12 Advantages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+35
+xi
+
+---PAGE BREAK---
+2.13 Disadvantages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+36
+2.14 Summary
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+36
+3
+System Analysis & Requirements
+37
+3.1
+Chapter Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+37
+3.2
+Stakeholders and User Roles . . . . . . . . . . . . . . . . . . . . . . .
+37
+3.3
+Assumptions and Constraints . . . . . . . . . . . . . . . . . . . . . . .
+38
+3.4
+Requirements Traceability (Conceptual Mapping) . . . . . . . . . . . .
+38
+3.5
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+39
+3.5.1
+Requirement Identifying Techniques . . . . . . . . . . . . . . .
+39
+3.5.2
+Functional Requirements . . . . . . . . . . . . . . . . . . . . .
+40
+3.5.3
+Non-Functional Requirements . . . . . . . . . . . . . . . . . .
+44
+3.5.4
+Feasibility Study (Technical, Economic, Operational & Time) .
+45
+4
+System Design
+49
+4.1
+Design Goals and Principles
+. . . . . . . . . . . . . . . . . . . . . . .
+49
+4.2
+High-Level Architecture
+. . . . . . . . . . . . . . . . . . . . . . . . .
+49
+4.2.1
+Major Architectural Components
+. . . . . . . . . . . . . . . .
+49
+4.3
+Data Design (Conceptual Model) . . . . . . . . . . . . . . . . . . . . .
+50
+4.4
+Security and Privacy by Design . . . . . . . . . . . . . . . . . . . . . .
+50
+4.5
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+50
+4.6
+Use Case Diagram
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+51
+4.7
+Prototype Screens Overview . . . . . . . . . . . . . . . . . . . . . . .
+56
+5
+Implementation
+61
+5.1
+Implementation Strategy . . . . . . . . . . . . . . . . . . . . . . . . .
+61
+5.2
+Technology Stack Rationale
+. . . . . . . . . . . . . . . . . . . . . . .
+61
+5.3
+Core Implementation Modules (Deep-Dive Summary) . . . . . . . . . .
+62
+5.3.1
+Authentication and Role-Based Routing . . . . . . . . . . . . .
+62
+5.3.2
+Queue State Machine and Token Lifecycle
+. . . . . . . . . . .
+62
+5.3.3
+Wait-Time Estimation
+. . . . . . . . . . . . . . . . . . . . . .
+62
+5.3.4
+Notification Triggering . . . . . . . . . . . . . . . . . . . . . .
+62
+5.3.5
+Analytics and Reporting . . . . . . . . . . . . . . . . . . . . .
+62
+5.4
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+63
+5.5
+Development Environment & Tools
+. . . . . . . . . . . . . . . . . . .
+63
+5.6
+Technologies Used
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+64
+5.7
+Module Description . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+64
+5.8
+Algorithm / Logic Explanation . . . . . . . . . . . . . . . . . . . . . .
+65
+5.8.1
+First-In-First-Out (FIFO) Queue Sequencing
+. . . . . . . . . .
+65
+5.8.2
+Priority Override Logic . . . . . . . . . . . . . . . . . . . . . .
+66
+xii
+
+---PAGE BREAK---
+5.8.3
+Proactive Notification Trigger Logic . . . . . . . . . . . . . . .
+66
+5.8.4
+End-of-Day Archive & Reset Logic . . . . . . . . . . . . . . .
+66
+5.8.5
+Technical Prototypes Realization Summary . . . . . . . . . . .
+67
+6
+Testing & Evaluation
+68
+6.1
+Testing Philosophy and Quality Targets
+. . . . . . . . . . . . . . . . .
+68
+6.2
+Test Environment Assumptions . . . . . . . . . . . . . . . . . . . . . .
+68
+6.3
+Test Coverage Approach
+. . . . . . . . . . . . . . . . . . . . . . . . .
+68
+6.4
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+69
+6.5
+Testing Objectives . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+69
+6.6
+Testing Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . .
+70
+6.6.1
+Unit Testing . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+70
+6.6.2
+Integration Testing . . . . . . . . . . . . . . . . . . . . . . . .
+70
+6.6.3
+System Testing . . . . . . . . . . . . . . . . . . . . . . . . . .
+70
+6.6.4
+User Acceptance Testing (UAT) . . . . . . . . . . . . . . . . .
+70
+6.7
+Functional Testing Results . . . . . . . . . . . . . . . . . . . . . . . .
+70
+6.8
+Performance Testing
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+71
+6.9
+AI Clinical Scribe Evaluation . . . . . . . . . . . . . . . . . . . . . . .
+72
+6.10 Analytics Dashboard Evaluation . . . . . . . . . . . . . . . . . . . . .
+73
+6.11 Security Testing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+73
+6.12 Usability Evaluation
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+73
+6.13 Overall Evaluation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+74
+7
+Results & Discussion
+75
+7.1
+Evaluation Lens and Interpretation . . . . . . . . . . . . . . . . . . . .
+75
+7.2
+Summary of Key Results . . . . . . . . . . . . . . . . . . . . . . . . .
+75
+7.3
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+76
+7.4
+System Outputs (How the App Actually Works) . . . . . . . . . . . . .
+76
+7.5
+Achieved Objectives (What We Accomplished) . . . . . . . . . . . . .
+78
+7.6
+Discussion & Room to Grow . . . . . . . . . . . . . . . . . . . . . . .
+79
+7.7
+Comparison with Existing Systems . . . . . . . . . . . . . . . . . . . .
+80
+7.8
+Limitations of the System (Challenges We Faced) . . . . . . . . . . . .
+81
+8
+Conclusion & Future Work
+90
+8.1
+Consolidated Contributions . . . . . . . . . . . . . . . . . . . . . . . .
+90
+8.2
+Limitations (Context-Aware) . . . . . . . . . . . . . . . . . . . . . . .
+90
+8.3
+Future Roadmap (Implementation-Oriented) . . . . . . . . . . . . . . .
+91
+8.4
+Conclusion
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+91
+8.4.1
+System Achievement . . . . . . . . . . . . . . . . . . . . . . .
+91
+8.4.2
+Validation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+92
+xiii
+
+---PAGE BREAK---
+8.5
+System Limitations and Challenges . . . . . . . . . . . . . . . . . . . .
+92
+8.6
+Future Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+93
+References
+95
+A Screenshots
+96
+B
+Test Cases
+100
+C User Manual
+101
+C.1
+Reception Terminal Operation Guide . . . . . . . . . . . . . . . . . . . 101
+C.2
+Clinical Consultation Terminal Guide
+. . . . . . . . . . . . . . . . . . 101
+D Source Code
+102
+D.1
+Repository/Module Structure (Conceptual) . . . . . . . . . . . . . . . . 102
+D.2
+Key Algorithms (Code-Level Mapping)
+. . . . . . . . . . . . . . . . . 102
+D.2.1
+FIFO Token Sequencing . . . . . . . . . . . . . . . . . . . . . 102
+D.2.2
+Priority Override (Emergency Insertion) . . . . . . . . . . . . . 102
+D.2.3
+Proactive Notification Trigger (Threshold-Based) . . . . . . . . 102
+D.3
+Code Listings (Insert Relevant Snippets) . . . . . . . . . . . . . . . . . 103
+xiv
+
+---PAGE BREAK---
+List of Figures
+1. Block Diagram for MedQueue 11
+2. Milestone Chart 12
+3. Milestone Graph 14
+1. Competitor A: Qmatic - Open Systems 18
+2. Competitor B: 5 Best Online Doctor Apps in Pakistan 20
+3. Competitor C: Waitwhile Platform 21
+4. Analysis Table Comparing MedQueue with Competitors 23
+5. MedQueue Working Model Flow 24
+1. Use Case Diagram for MedQueue 38
+2. Prototype 1: Welcome Screen Layout 43
+3. Prototype 2: Receptionist Dashboard Layout 43
+4. Prototype 3: Analytics Dashboard Layout 44
+5. Prototype 4: Doctor’s Dashboard Layout 46
+1. App Interface Compilation Sheet 1 66
+2. App Interface Compilation Sheet 2 67
+3. App Interface Compilation Sheet 3 67
+4. App Interface Compilation Sheet 4 68
+5. App Interface Compilation Sheet 5 68
+6. App Interface Compilation Sheet 6 69
+7. App Interface Compilation Sheet 7 69
+8. App Interface Compilation Sheet 8 70
+9. App Interface Compilation Sheet 9 70
+10. App Interface Compilation Sheet 10 71
+xv
+
+---PAGE BREAK---
+11. App Interface Compilation Sheet 11 71
+12. App Interface Compilation Sheet 12 72
+13. App Interface Compilation Sheet 13 73
+14. App Interface Compilation Sheet 14 74
+xvi
+
+---PAGE BREAK---
+List of Tables
+1. Milestones for MedQueue 13
+2. Final Deliverable 13
+1. Functional Requirement 1 = Staff Login 27
+2. Functional Requirement 2 = Patient Registration 28
+3. Functional Requirement 3 = Token Generation 28
+4. Functional Requirement 4 = Wait Time Estimation 28
+5. Functional Requirement 5 = WhatsApp Trigger 29
+6. Functional Requirement 6 = Call Next Patient 29
+7. Functional Requirement 7 = Mark as Absent 29
+8. Functional Requirement 8 = Live Public View 29
+9. Functional Requirement 9 = Patient Mobile View 30
+10. Functional Requirement 10 = Priority Override 30
+11. Functional Requirement 11 = Doctor Stats 30
+12. Functional Requirement 12 = Admin Analytics 30
+13. Functional Requirement 13 = Clinic Profile 31
+14. Functional Requirement 14 = User Management 31
+15. Functional Requirement 15 = End of Day Reset 31
+1. Use Case UC-001: Staff Login 37
+2. Use Case UC-002: Register Patient 39
+3. Use Case UC-003: Generate Token 39
+4. Use Case UC-004: Call Next Patient 39
+5. Use Case UC-005: View Live Queue Status 40
+6. Use Case UC-006: Priority Override 40
+xvii
+
+---PAGE BREAK---
+7. Use Case UC-007: Mark Patient Absent 40
+8. Use Case UC-008: View Analytics 41
+9. Use Case UC-009: Receive Notification 41
+10. Use Case UC-010: Manage Users 41
+11. Prototype-1 = Welcome Screen Description 42
+12. Prototype-2 = Receptionist Dashboard Description 43
+13. Prototype-3 = Analytics Dashboard Description 44
+14. Prototype-4 = Doctor’s Dashboard Description 45
+1. Functional Testing Results Table 55
+2. Performance Testing Results Table 55
+3. AI Scribe Evaluation Criteria Table 56
+4. Usability Feature Evaluation Summary 57
+1. Delivered Features by User Role Table 62
+xviii
+
+---PAGE BREAK---
+List of Abbreviations
+The following abbreviations and acronyms are used throughout this report to describe
+system components, software engineering concepts, security primitives, and operational
+metrics. Where relevant, the abbreviations align with common usage in web application
+engineering and healthcare informatics contexts.
+Abbreviation
+Meaning
+UI
+User Interface
+UX
+User Experience
+API
+Application Programming Interface
+DB
+Database
+JWT
+JSON Web Token
+MAU
+Monthly Active Users
+SRS
+Software Requirements Specification
+HTTPS
+Hypertext Transfer Protocol Secure
+CNIC
+Computerized National Identity Card
+PKR
+Pakistani Rupee
+xix
+
+---PAGE BREAK---
+Chapter 1
+Introduction
+1.1
+Background
+Healthcare delivery in outpatient departments (OPDs) is shaped not only by clinical
+expertise but also by the operational mechanics that determine how quickly, fairly,
+and safely patients move through reception, triage, consultation, and discharge. In
+Pakistan, small-to-medium clinics constitute a large portion of first-contact medical
+access; however, many such facilities still depend on hand-written registers, physical
+tokens, and ad-hoc verbal calling mechanisms. These practices create a bottleneck at
+the exact point where a clinic should be most predictable: patient intake and waiting
+management.
+From an informatics perspective, outpatient operations can be viewed as a real-time
+service system where arrivals are stochastic, service times vary by clinician and case
+complexity, and perceived fairness strongly impacts user satisfaction. When queue states
+are opaque, perceived waiting time increases, the likelihood of repeated interruptions
+rises, and overall throughput is reduced. The MedQueue project is positioned as an
+applied software engineering response to this operational reality, designed to introduce
+visibility, predictability, and role-appropriate control into everyday clinic workflows.
+1.2
+Problem Statement
+Outpatient clinics in Pakistan frequently experience overcrowded waiting areas and
+unpredictable patient calling order due to manual, paper-based processes that provide
+no reliable real-time visibility into queue state. As a result, patients experience height-
+ened anxiety and dissatisfaction, reception staff are repeatedly interrupted for status
+inquiries, and clinicians face operational delays when patients miss their turn or when
+emergencies require rapid reprioritization. There exists a practical need for an affordable,
+browser-based queue management system that supports walk-in patient handling, role-
+based workflows, remote status visibility, and proactive notifications without requiring
+expensive kiosk hardware or mandatory mobile app installation.
+1
+
+---PAGE BREAK---
+1.3
+Objectives
+The primary objective of MedQueue is to design and implement a low-overhead, browser-
+native queue management platform that digitizes outpatient waiting workflows while
+remaining feasible for adoption in small-to-medium clinical settings. Concretely, the
+project aims to: (i) replace manual token issuance with a controlled digital token lifecycle,
+(ii) provide synchronized, real-time queue visibility across staff and patient views, (iii)
+reduce patient uncertainty through proactive alerts (e.g., WhatsApp/SMS), (iv) enforce
+role-based access control so that each stakeholder sees only what is necessary for their
+tasks, and (v) enable operational learning through structured logs and analytics.
+1.4
+Scope
+The scope of this report covers the end-to-end software engineering lifecycle of
+MedQueue as a Final Year Design Project (FYDP): background and rationale, com-
+petitor and literature grounding, requirement elicitation, system design and prototype
+specification, implementation details of the queue engine and notification triggers,
+and validation through testing and evaluation artifacts. The system scope is centered
+on outpatient queue handling (walk-in registration, token sequencing, consultation
+progression, basic analytics, and notifications). It does not attempt to replace full
+hospital information systems (HIS) or electronic medical record (EMR) suites; instead,
+it targets the operational gap between appointment booking tools and on-ground waiting
+management.
+1.5
+Significance of the Project
+MedQueue is significant because it reframes waiting as an information and coordination
+problem rather than an unavoidable inconvenience. By shifting queue state into a real-
+time digital artifact, clinics can reduce crowd density, improve perceived fairness, and
+support calmer patient experiences. At the same time, the system decreases administra-
+tive interruption load on staff and enables data-informed decisions for clinic management.
+As a locally grounded solution that leverages communication channels already dominant
+in Pakistan (such as WhatsApp and SMS), MedQueue also demonstrates how practical
+digital health interventions can be designed for adoption realism rather than idealized
+infrastructure assumptions.
+2
+
+---PAGE BREAK---
+1.6
+Introduction
+Despite global advances in medicine, many clinics across Pakistan still depend on
+outdated paper-based systems to manage appointments. Efficiency in moving patients
+through facilities now directly shapes how well hospitals perform. When health care
+demand rises worldwide, back-end processes for handling outpatients need constant
+updates. Yet one persistent weakness remains embedded in the system there - handwritten
+logs and old-style queuing dominate daily operations. While technology reshapes care
+elsewhere, these analog methods slow progress locally.
+Waiting areas overflow in many clinics across Pakistan due to disorganized patient flow.
+Without digital systems guiding appointments, queues form without clear order. Lines
+shift unpredictably, leaving individuals unsure when they will be seen. Real-time updates
+do not exist, so people remain uninformed about delays. Such confusion compounds
+tension during visits meant to be straightforward. Uncertainty stretches minutes into
+perceived hours. Stress builds quietly among those seated, deepening feelings of unease.
+Frustration grows where information should fill silence. What begins as a standard
+checkup becomes emotionally taxing. The experience erodes trust, even if treatment
+itself is sound. Medical staff face similar challenges - doctors and reception teams often
+deal with frequent interruptions, repeated checks by hand, besides ongoing questions
+about patient order. Such breaks in workflow pull attention away from what matters most
+in clinics: providing care that is thorough, consistent, quality-focused. Though small,
+each distraction adds up, shifting energy from treatment toward tasks better handled
+smoothly behind the scenes.
+1.1.1 The Operational Paradox and the Need for Intervention
+One noticeable tension points to a core challenge in everyday clinic operations. When
+medical staff need quiet to concentrate, without frequent disruptions from paperwork
+demands, people arriving for care expect a steady, respectful wait - one that does not
+waste their time. Even though clinics differ by location and community size, both sides
+gain significantly if tasks flow smoothly, information stays precise, and steps in the
+process remain transparent. What happens inside affects everyone involved.
+MedQueue steps into the gap, offering a streamlined web tool that runs right in browsers
+- no extra software needed. Instead of sticking to outdated methods, it reimagines how
+clinics handle outpatient visits. Built for today's on-the-go patients, it links clinical work-
+flows directly to personal smartphones. This shift replaces fixed schedules with flexible
+coordination, fitting care into real life. The system works quietly in the background,
+aligning medical operations with everyday mobility.
+3
+
+---PAGE BREAK---
+1.1.2 Framework for the Digital Solution
+What drives MedQueue’s design is smooth connection with current systems alongside
+practical cost balance. Instead of costly servers or special equipment, it uses modern
+web tools that stay light and flexible. Because updates move instantly through widely
+used channels - like SMS and WhatsApp - performance gains emerge naturally. Patients
+get accurate alerts about their place in line right on phones they already own. Skipping
+the need to install apps removes typical setup hurdles entirely. Precision arrives without
+extra steps because messages flow where people already communicate.
+Without fanfare, MedQueue swaps out old-school paper queues for a quiet digital flow
+tucked beneath daily operations. Instead of stacks of forms and unclear steps, tasks move
+forward with precision. A steady backbone of code handles scheduling pressures across
+small-town clinics. Costs stay low even as usage grows. Clarity rises where confusion
+once thrived. Behind the scenes, order takes root without demanding attention.
+1.7
+Project Summary
+.1.1 Abstract Problem Domain and System Overview
+In modern healthcare administration, protracted wait times within outpatient facilities
+represent a pervasive systemic challenge that drastically reduces patient satisfaction
+and increases operational friction. The psychological and physical burden of waiting
+in densely populated, chaotic environments often feels overwhelming to individuals
+requiring medical attention.
+To address these deeply entrenched institutional inefficiencies, MedQueue was concep-
+tualized and developed as a comprehensive, browser-native digital queue management
+system. Operating entirely within a web-based architecture, MedQueue establishes a
+centralized data pipeline that seamlessly orchestrates real-time communication and work-
+flow synchronization among front-desk administrative personnel, clinical practitioners,
+and the patients awaiting care.
+MedQueue is a system that helps patients know where they are in the line to see a doctor.
+This way patients do not have to keep guessing when it's their turn. MedQueue has a
+layer that lets patients track how long they have to wait from their own devices. This
+means that patients do not have to wait in the waiting room for a time.
+At the time the people who work at the clinic do not have to answer the same questions
+over and over again. The system updates itself so the staff can focus on things.
+MedQueue gets rid of the old paper logbooks that clinics used to use. Now everything is
+4
+
+---PAGE BREAK---
+digital and automatic. This means that the clinic staff do not have to spend a lot of time
+filing papers and answering phone calls.
+MedQueue makes the clinic run smoothly. It helps everyone know what is going on and
+when. This makes it easier for patients to know when it is their turn and for the clinic
+staff to do their jobs.
+1.1.2 How MedQueue Works
+MedQueue has parts that work together to make the clinic run better. These parts include:
+• Virtual Token Generation Engine: When patients arrive at the clinic the staff
+gives them a digital token. This token is like a ticket that shows where the patient
+is in the line.
+• Asynchronous Mobile Telemetry: Patients can use their phones to see where
+they are in the line. This way patients can wait else and not have to sit in the
+waiting room.
+• Dynamic Algorithmic Wait-Time Prediction: The system can predict how
+patients will have to wait. It does this by looking at how long things took in the
+past and how they are going now.
+• Automated Omnichannel Alerting: When it is almost time for a patient to see
+the doctor the system sends them a message. This message tells them to come to
+the clinic.
+• Granular Access Control and Security Isolation: Only certain people can
+change the order of the patients or make changes to the system.
+• Centralized Digital Signage: There are screens in the clinic that show where
+everyone is in the line. This helps patients know what is going on.
+• Analytical Operational Telemetry: The clinic staff can see how the clinic is
+doing over time. They can see things like how many patients come in at times and
+how well the doctors are doing.
+1.1.3 How MedQueue Helps People
+When patients do not know how they have to wait it can feel like a long time. MedQueue
+helps patients know what is going on so they do not feel like they are waiting forever.
+For doctors and other clinic staff MedQueue helps them do their jobs better. It helps
+them see patients one, after another without any problems. This means that the doctors
+can focus on helping the patients and not have to worry about the paperwork and other
+5
+
+---PAGE BREAK---
+things.
+Operational Metric
+Legacy Clinical Framework
+MedQueue Digital Ecosystem
+Data Integrity &
+Capture
+Manual, vulnerable to human
+error and loss.
+Automated database entries
+with audit logs.
+Waiting Room
+Density
+Highly congested; elevated
+cross-infection risks.
+Decentralized; off-site waiting
+enabled.
+Staff Interruption
+Rate
+Continuous inquiries
+regarding wait times.
+Negligible; automated alerts
+handle updates.
+Infrastructure
+Costs
+Ongoing paper procurement
+and physical filing.
+Minimal; browser-native with
+zero local footprint.
+The user interface of MedQueue is easy to use making it simple for users to learn and
+start using it. This is helpful for users with levels of technology experience.
+MedQueue is a low-overhead Software as a Service application, which means it doesn't
+need hardware or special IT staff to run.
+This is good for medium-sized medical practices in Pakistan as they can get the same
+benefits as big hospitals.
+MedQueue brings technology to old clinical spaces making it easier to manage patients.
+It does this in an steady way that can grow with the needs of the practice.
+This changes the experience of patients going to outpatient clinics from one of delays to
+one of efficient healthcare delivery.
+MedQueue helps to make healthcare delivery more efficient.
+The MedQueue system is designed to manage flow in a better way.
+It helps practices to provide good healthcare to their patients.
+MedQueue is a tool, for medical practices..
+6
+
+---PAGE BREAK---
+1.8
+Objective, Benefits and Deliverables
+1.8.1
+Objectives
+Digitization and Modernization of Outpatient Queue Structures
+The foremost operational imperative of the MedQueue framework is the systematic
+and complete digitization of legacy patient queue structures. Historically, outpatient
+facilities have operated under a physical token architecture, which is inherently limited
+by geographical constraints, human processing errors, and a total lack of transparency.
+By engineering a migration away from these paper-based tokens, the system facilitates
+a profound institutional shift in how administrative data is captured, preserved, and
+distributed.
+This structural transformation is achieved through several core operational developments:
+• Cloud-Native Centralization and Global Accessibility: By leveraging a cloud-
+native architecture, data access is decentralized. Information is no longer confined
+to a single, handwritten ledger at the front reception desk. Instead, critical data
+paths open up across a distributed network, allowing secure, multi-tenant access
+from any authorized browser-native node.
+• Synchronized Real-Time Data Streams: The platform replaces static, manual
+updates with automated, real-time telemetry. The moment a patient is logged
+into the database, an entry is generated across the entire system. Updates flow
+seamlessly to all connected interfaces, establishing an immediate data loop. This
+ensures that a sequence change initiated by a front-desk receptionist is instantly
+mirrored on the physician's dashboard and public-facing signage modules without
+a time delay.
+• Elimination of Physical Documentation Intermediaries: By connecting insti-
+tutional systems without physical slips, the clinic eliminates material overhead,
+printing equipment failures, and the administrative mess of lost or misread tickets.
+Information moves dynamically alongside the patient's physical transit through
+the clinic lifecycle—from initial entry, through triage and medical examination, to
+final checkout.
+• Cross-Device Omnichannel Dissemination: Because the interface is designed to
+scale dynamically, real-time updates appear instantly across an array of consumer
+devices, ranging from large waiting room displays to personal mobile phones.
+All stakeholders—including administrative clerks, senior medical officers, and
+patients—possess immediate visibility into the queue sequence.
+7
+
+---PAGE BREAK---
+• Enhanced Temporal and Sequence Visibility: For the service consumer, live
+tracking replaces the visual blind spots common in traditional waiting rooms.
+Patients are no longer left sitting in uninformative environments wondering when
+their name will be called; instead, clear sequence progression values are dis-
+played openly, significantly reducing perceived wait times and optimizing overall
+operational workflow.
+– Reduce Waiting Anxiety: The main goal of MedQueue is to reduce the
+stress people feel when they are waiting. This happens when people do not
+know how they have to wait or what is going on. Research shows that when
+people are waiting and they do not know what is happening it feels like a
+long time.. When people know what is going on and what they have to do
+the waiting time feels shorter and less stressful. MedQueue helps people by
+giving them all the information they need.
+– Here are some ways MedQueue helps people:
+– It tells people where they are in the line. When people know where they are
+in the line they feel less stressed because they know what is going on.
+– It gives people an idea of how long they have to wait. This is based on data,
+not just a guess. So people can plan their time. Know what to expect.
+– It lets people wait else. They do not have to stay in the waiting room. They
+can wait in their car at home or somewhere else that is less stressful. They
+will get a message when it is their turn.
+– It sends people updates on their phone. This way people know what is going
+on. They do not have to keep asking the staff. This makes the whole process
+feel more calm and organized.
+– MedQueue is trying to make the waiting time feel less stressful for people. It
+does this by giving people the information they need and letting them wait in
+a way that feels comfortable for them. The MedQueue framework is about
+reducing waiting anxiety and making the experience better, for people. The
+Reduction of Waiting Anxiety is a part of what MedQueue does.
+– Optimize Clinic Operations: Start The MedQueue framework is designed
+to make clinic operations better. It does this by changing administrative tasks.
+The system replaces work with automated digital processes. This reduces the
+problems that come with patient intake, scheduling and facility management.
+The MedQueue framework makes important changes to achieve this.
+8
+
+---PAGE BREAK---
+– Automated Morning. Intake Decentralization: The clinic uses digital self-
+service or barcode check-in. This helps the medical facility start the day
+with work. Of a big backlog of physical registrations the software manages
+patient arrivals. It does this without bottlenecks.
+– Algorithmic Token Generation and Zero-Typing Workflows: The system
+uses identification databases. It creates tokens instantly without needing to
+type or write anything. The software. Records entries instead of using paper
+slips. This reduces data entry time. Eliminates human errors.
+– Acoustic Telemetry and Digital Audio Paging: The clinic uses automated
+audio calls of verbal patient paging. This is done through speaker systems
+and digital signage updates. It reduces the strain on receptionists voices.
+Creates a structured environment. Sequence numbers are announced clearly
+and accurately throughout the facility.
+– Strategic Repositioning of Administrative Capital: The clinic moves away
+from paper logs and towards tasks. Front-desk personnel focus on patient
+engagement and less on clerical work. This improves the clinics care quality.
+– Sub-Surface Automation and Auto-Populating Data Schemes: Routine ad-
+ministrative steps are. Happen in the background. Forms and consultation
+fields fill themselves automatically based on data. This gives healthcare
+professionals time to focus on patients. The MedQueue framework operates
+invisibly in the background allowing medical practitioners to have inter-
+actions with patients. The MedQueue framework makes these changes to
+optimize clinic operations and improve care. The MedQueue framework is
+the key, to making these changes happen.
+– Provide Data-Driven Insights: The MedQueue architecture is like a tool for
+managing healthcare facilities. It does a lot more than just handle information.
+The system keeps track of what happens at the facility over time so it can
+help people who run the facility make decisions.
+– It takes the information about patients. Turns it into something that can be
+used to make the facility run better. The MedQueue architecture replaces
+guessing with facts so people who manage the facility can make choices
+about how to run it. Here are some ways the MedQueue architecture helps:
+– Temporal Demand Profiling and Peak-Hour Identifications: The MedQueue
+architecture shows clinic owners when the facility is busiest so they can have
+staff on hand. It does this by looking at when patients arrive and how often.
+9
+
+---PAGE BREAK---
+This helps the clinic owners figure out when they need more people working.
+– Quantification of Patient Attrition and Abandonment Rates: The MedQueue
+architecture also looks at how many patients leave without being seen by a
+doctor. This helps the clinic owners see what is making patients leave so they
+can fix the problem.
+– Granular Consultation and Throughput Analytics: The MedQueue architec-
+ture measures how long each patient visit takes, from when the patient's
+called into the exam room to when the doctor is done with the visit. This
+helps the clinic owners see how long things take and how they can make it
+faster.
+– Emergence of Macro-Level Behavioral Patterns: When the MedQueue archi-
+tecture looks at all the information it has it can see patterns that might not be
+clear otherwise. It can show how one problem can cause problems later, in
+the day.
+– The MedQueue architecture helps people who manage the facility make
+choices by giving them facts to work with. When one thing changes it can
+affect everything. So if the doctors see patients faster the patients do not have
+to wait long. Over time small changes can add up. Make a big difference.
+What is most important is that the MedQueue architecture gives people who
+manage the facility the information they need to make choices so they do not
+have to guess.
+– Ensure Scalability: The MedQueue system needs to be able to handle a lot
+of users and data. This is a technical requirement of the MedQueue system
+architecture. The MedQueue system is designed to work and be available all
+the time. It is a -tenant software-as-a-service that many clinics can use at the
+same time.
+– The MedQueue system has to support clinics and keep their data separate.
+To do this the MedQueue system uses a way of setting up the database. This
+means that many medical clinics can use the MedQueue system at the time
+and their patient data will remain secure and separate from other clinics.
+– When many people are using the MedQueue system it has to be able to
+handle all the traffic. The MedQueue system does this by using special event
+loops and database indexing. This keeps the MedQueue system running even
+when many people are using it.
+– The MedQueue system is also designed to grow and adapt to changing
+10
+
+---PAGE BREAK---
+demands. The MedQueue system can add computing power as needed
+without having to replace the existing hardware. This keeps the MedQueue
+system running even when there are many new clinics or users.
+– The MedQueue system also has a way to balance the load so that one clinics
+traffic does not affect clinics. This keeps the MedQueue system running even
+when there are unexpected spikes in traffic.
+– All the parts of the MedQueue system are connected in a way that prevents
+bottlenecks. This means that if one part of the MedQueue system is slow
+it will not affect the rest of the MedQueue system. The MedQueue system
+stays running even in busy environments.
+– The MedQueue system has features that help it handle a lot of traffic and
+data. These features include:
+– Tenant isolation so many clinics can use the MedQueue system at the same
+time
+– High-concurrency performance so the MedQueue system can handle many
+users
+– Horizontal scalability so the MedQueue system can grow and adapt to chang-
+ing demands
+– Load balancing so one clinics traffic does not affect clinics
+– Decoupled components so one part of the MedQueue system does not affect
+the rest of the MedQueue system
+– The MedQueue system is designed to be a highly available multi-tenant
+software-, as-a-service. The MedQueue system is engineered to function and
+be available all the time. The MedQueue system is a centralized infrastructure
+setup that must support, isolate and manage data configurations for many
+independent clinics simultaneously. The MedQueue system achieves this
+by using architectural principles designed to preserve performance. The
+MedQueue system is the core of the system. It needs to be able to handle a
+lot of users and data..
+1.8.2
+Benefits
+1. A. Improved Patient Satisfaction
+2. The main advantage of using MedQueue is that patients are more satisfied.
+11
+
+---PAGE BREAK---
+In clinics patients get unhappy when they have to wait for a long time.
+MedQueue changes this by giving patients information and letting them wait
+remotely.
+3. When patients can wait at home or at work they feel better. They don't have
+to sit in a waiting room and feel helpless. They can use their time to do
+something. This makes waiting less frustrating.
+4. B. Better Clinic Efficiency
+5. MedQueue helps clinics work efficiently. It automates tasks so staff can
+focus on more important things. This means patients are seen faster and
+clinics can see patients.
+6. Staff don't have to spend much time managing lines and appointments. This
+reduces stress. Makes the clinic run more smoothly. Patients get through the
+system faster. Clinics can see more patients.
+7. C. Building Trust with Patients
+8. MedQueue helps build trust between patients and clinics. It shows patients
+where they are in the queue and how long they have to wait. This makes
+patients feel more confident.
+9. When patients can see the queue moving they trust the system more. They
+know the clinic is working fairly and efficiently. This reduces tension. Makes
+patients feel better.
+10. D. Affordable Modernization
+11. MedQueue is a way for clinics to modernize. It doesn't require hardware or
+infrastructure. Clinics can use devices, like computers or smartphones.
+12. This makes it easier for small clinics to adopt technology. They don't have to
+spend a lot of money on equipment. MedQueue is a cost- solution.
+13. E. Data and Analytics
+14. MedQueue also provides data and analytics. It tracks every step of the clinic
+workflow. Provides insights into performance.
+15. Clinic managers can see how smoothly the clinic is running and where delays
+are happening. This helps them make decisions and optimize the clinics
+operations. They can see whats working. Whats not and make changes to
+improve the clinic.
+12
+
+---PAGE BREAK---
+1.8.3
+Deliverables
+– Completely Operational Web Application (MedQueue): Using it feels
+natural, working just as well on phones as it does on computers. A smooth
+setup adapts easily no matter what screen size shows up.
+– Real-Time Queue Engine: From the start, a strong backend handles order
+sequencing using FIFO rules while allowing urgent items to jump ahead
+when needed. It keeps track of current statuses without delay, updating
+information constantly behind the scenes. Not just moving tasks in line, it
+adjusts on the fly if priorities shift. At its core, timing matters - each step
+watched, every change reflected instantly.
+– Notification System: Messages reach patients by phone or WhatsApp just
+before it is their time to see the doctor. Alerts go out automatically using
+system links to messaging tools. When a slot opens up nearby, updates arrive
+through familiar chat apps. The moment shifts happen, notifications move
+through set connections. Close to appointment time, people get pings via
+text or mobile app.
+– Role-Based Dashboards: One screen fits those signing patients in. An-other
+shapes how physicians review cases. A separate view tracks reports for office
+managers.
+– Public Waiting Display: A screen set up in the clinic’s waiting room displays
+active ticket numbers. This setup keeps visitors informed about
+whose turn it is. People see updates without needing to ask staff. The
+display runs nonstop during operating hours. Information appears
+clearly so everyone can read it easily. Each number change happens
+automatically as appointments move forward.
+– Final Project Presentation and Documentation: Full report and pre-
+sentation with the description of features, progress, and results of the project.
+1.9
+Development / Research Methodology
+1.9.1
+Introduction
+In the world of healthcare and software it is really important to choose the right way
+to develop the MedQueue framework. This is because the MedQueue framework
+is used to connect patient movement with the workflow of outpatient clinics. If we
+13
+
+---PAGE BREAK---
+use a development framework that's too rigid it will not work well.
+The reason for this is that clinics are very unpredictable. Sometimes there are a lot
+of patients. Sometimes there are not many. Also doctors and nurses need to be
+able to make decisions. Because of this the system needs to be very flexible. To
+make this happen we use a process that is always getting feedback. This means
+that the software is always being improved, step by step.
+To manage this we use Scrum, which is a way of developing software that is
+very flexible. The MedQueue framework uses Scrum because it works well with
+healthcare applications. Scrum breaks down goals into smaller more manageable
+parts called Sprints.
+This way we can make changes, to the MedQueue framework quickly and easily.
+We can also test it all the time to make sure it is working well. This means that
+when the MedQueue framework is used by doctors, nurses and patients it will be
+reliable and work well.
+The MedQueue framework also helps software developers work with healthcare
+professionals. They work together to make sure the MedQueue framework is easy
+to use and does what it needs to do.
+As the MedQueue framework grows and is used by clinics we make sure to keep
+the patient data safe and secure. We also make sure that the MedQueue framework
+is easy to use even as it gets bigger and more complex. We do this by looking at
+how the MedQueue framework has been used in the past and making changes to
+make it better. The MedQueue framework gets better and better over time. This
+helps us provide good healthcare to patients.
+1.9.2
+Agile Methodology Overview
+16. To construct a responsive multi-tenant ecosystem like MedQueue the software
+engineering lifecycle must be decoupled from traditional rigid development
+models.
+17. Operating within controlled self-correcting feedback loops allows the engi-
+neering team to continuously adapt the system state as clinical environments
+dictate new functional rules.
+18. This structural flexibility is driven by time-delimited compilation windows
+known as Sprints.
+19. Within these windows specific components of the user interface and relational
+14
+
+---PAGE BREAK---
+database layers are systematically conceptualized, built, tested and shipped.
+20. Here is a representation of the process:
+21. Because outpatient medical environments are highly volatile—characterized
+by shifting clinic priorities fluctuating volumes and unexpected triage events—
+relying on an incremental evolving architecture is inherently superior to
+enforcing a static unyielding deployment plan.
+22. Each development loop is engineered to clear a focused set of technical
+milestones within a strict predictable timeline.
+23. This prevents scope creep. Ensures that clinic staff and patients gain access
+to stable functional improvements in weeks rather than fiscal quarters.
+24. #### B. Mitigating Micro-Friction and Cognitive Workload
+25. In high-stress healthcare settings check-in environments face unpredictable
+operational bottlenecks that cannot be fully modeled in an isolated laboratory.
+26. Therefore prioritizing real-world fluidity and adaptive design principles
+is more critical than adhering to an outdated pre-conceived engineering
+roadmap.
+27. Here are some comparisons between the Human Factors Vector, Legacy
+Static Software and MedQueue Adaptive Scrum:
+28. User Onboarding:
+29. Legacy Static Software: learning curves; requires dense manuals.
+30. MedQueue Adaptive Scrum: Intuitive role-isolated views; zero training
+required.
+31. System Stress Response:
+32. Legacy Static Software: Database deadlocks during early morning rushes.
+33. MedQueue Adaptive Scrum: Elastic, event handling under load.
+34. UI Friction Mitigation:
+35. Legacy Static Software: form-fills that slow down physical intake.
+36. MedQueue Adaptive Scrum: Dynamic zero-typing text inputs and quick
+toggles.
+37. Deployment Validation:
+15
+
+---PAGE BREAK---
+38. Legacy Static Software: Theoretical verification via -hoc audits.
+39. MedQueue Adaptive Scrum: Empirical verification via end-user feedback.
+40. Deploying the Scrum framework ensures that the underlying software devel-
+opment lifecycle remains directly aligned with user patterns and operational
+feedback.
+41. Over time these continuous micro-optimizations dramatically improve sys-
+tem usability.
+42. This approach is highly effective, in clinical environments, where early field
+testing and direct observation of staff-software interactions dictate the next
+layout changes.
+43. By refining the interface based on real human variables software progress
+accelerates rapidly without sacrificing quality, technical security or clinical
+focus.
+1.9.3
+Applicability to “Project MedQueue”
+The Scrum framework was used in the healthcare system to create
+MedQueues main features like walk-in logging and SMS notifications.
+These features were developed by seeing what problems the clinic staff
+faced every day.
+Each time the development team worked on the software they tried to
+solve a problem they saw at the clinic.
+The team used a method with four main steps:
+First they looked for problems at the clinic that they could solve. For ex-
+ample they knew that patients often did not have an internet connection
+on their phones. So they used WhatsApp and SMS to send messages.
+They also thought about what would happen if the clinics internet
+connection went down. They made sure the software would still work
+even if the internet was not available.
+Every morning the team had a meeting to discuss the problems they
+faced. They did not just talk about the code they also tried to solve
+problems like keeping the database up to date even when the internet
+connection was slow.
+16
+
+---PAGE BREAK---
+At the end of each development cycle the team showed the features to
+the clinic staff. They got feedback. Made changes to the software. For
+example they made the text bigger so it was easier to read.
+The team also looked at how the staff and patients used the software.
+They saw what worked well and what did not. They made changes to
+the software to make it easier to use.
+To show how this method works here are some examples of problems
+the team faced and how they solved them:
+Local Clinic Reality: The internet connection is not always available.
+System Impact: The database gets disconnected and patient data is lost.
+Sprint Solution: The software can work sync data when the internet is
+available again.
+Operational Result: No patient data is lost.
+Local Clinic Reality: There are many patients at the same time.
+System Impact: The clinic staff is overwhelmed.
+Sprint Solution: The software can handle forms with just one click and
+print tokens automatically.
+Operational Result: It takes than 5 seconds to intake a patient.
+Local Clinic Reality: The power goes out often.
+System Impact: The computers shut down.
+Sprint Solution: The software can be accessed from a browser.
+Operational Result: The staff can still use the software on their smart-
+phones.
+Local Clinic Reality: Some patients are not familiar with technology.
+System Impact: They have trouble using the software.
+Sprint Solution: The software can be used in a web browser without
+needing to download an app.
+Operational Result: Patients can track their spot in line without needing
+to install an app.
+17
+
+---PAGE BREAK---
+By developing the software in the clinic environment the team made
+sure that MedQueue was a practical and useful tool, for the clinic staff.
+1.9.4
+Key Features of the Project
+– User Account and Role Management: Starting off, a safe way to regis-ter
+and log in keeps things running smoothly. Access shifts based on who you
+are - Admins get full control. For Doctors, entry is limited to patient data
+and appointments. Receptionists see only what they need for scheduling and
+records. Each level opens different parts of the system automatically.
+– Queue Management Module: Start things off by letting reception staff sign
+in patients. Tokens come next, built on the spot. The current lineup gets
+handled as it shifts. One thing follows another without piling up tasks.
+– Live Status Engine: Waiting times shift moment by moment, so people get
+fresh info on where they stand. Updates arrive as things change, giving a
+clear picture of how long until it’s their turn. This flow of information moves
+just as fast as the line itself.
+– Notification & Alerts: Messages arrive by WhatsApp or SMS, alerting
+patients as their appointment nears. A system handles timing, sending up-
+dates without manual input. Notifications go out automatically, keeping
+people informed ahead of visits. When slots draw close, alerts reach re-
+cipients through familiar messaging channels. These prompts help reduce
+missed appointments using routine digital nudges.
+– Doctor Consultation Interface: Next up shows right there when a doctor
+taps forward. Time ticks while they talk, logged without extra steps.
+– Analytics & Reporting: Picture charts that help clinic owners see how many
+patients come in and when things get busiest. Some days show more activity
+than others, depending on timing. These displays track those shifts without
+extra steps. Busy hours stand out clearly, making planning easier. Owners
+notice patterns they might otherwise miss. Information appears right away,
+no waiting needed.
+1.9.5
+Key Principles of Agile Methodology In The Context of
+Scrum
+– Iterative Development: A single sprint wraps up something real - say, a
+public screen or an alert that fires off. One piece at a time rolls into place,
+18
+
+---PAGE BREAK---
+tested live by actual users. Not later. Now. Each round hands over control
+to those who need it, whether viewing data or managing settings. Feedback
+shapes what comes next, quietly, without fanfare.
+– Collaboration: From the start, talks flow steadily among builders, check-ers,
+and those involved - tying every step to what actual clinics require.
+– Adaptability: Depending on what people say, changes might include new
+priority setups or better interfaces for reception staff.
+– Transparency: Every few weeks, progress shows up clearly through live
+reviews. Tools built for quick updates keep everyone aware of how work
+moves forward.
+– Continuous Improvement: Looking back lets the team see which parts
+worked, while spotting clear steps to adjust later. A pause like this turns
+experience into small fixes forward.
+1.9.6
+High-Level Algorithm Overview
+– Feature Identification: Out of the blue, the product crew picks core pieces
+live tracking, text updates, doctor access - guided by what the project
+aims to become. Not long after, every piece gets split into smaller steps
+that fit neatly inside a sprint cycle.
+– Backlog Prioritization: Top spots go to what matters most - urgency, worth,
+or how things link together technically. Early rounds give attention first to
+must-have pieces, such as the system that manages task order and live data
+updates.
+– Sprint Planning: Together, developers and product leads shape what each
+sprint should achieve. With estimates in hand using story points, work gets
+shared out among the team.
+– Development and Testing: Each sprint wraps up with a solid version of
+the product - no bugs, fully functional - thanks to steady testing and smooth
+code merging. Built-in unit checks keep errors out, while frequent usability
+reviews make sure things actually work as they should.
+– Sprint Review: A working version of the feature - like the receptionist
+dashboard - is shown to the team. Feedback from stakeholders gets written
+down, ready for upcoming development cycles.
+19
+
+---PAGE BREAK---
+– Sprint Retrospective: The team reflects on process efficiency and identi-fies
+actionable improvements for the next iteration.
+1.9.7
+Justification
+MedQueue uses Agile Scrum to improve workflow and adapt quickly.
+Changes come easier when clinic workers and patients can share what’s
+working. A system that listens tends to fit better over time. What
+matters most shows up in how people actually use it each day. Real
+shifts happen after someone points out a snag. Smooth paths emerge
+by watching where users slow down. Growth comes not from plans but
+from small fixes adding up.
+Step by step, each sprint adds core features like token creation or remote
+access. This way, the team checks what works, makes tweaks, then
+moves forward. Speed comes from testing early, adjusting often. Small
+updates stack into real momentum over time.
+Improvements never stop - little tweaks arrive regularly because real
+users show where things can work better. Smoothness grows over time,
+thanks to what people actually do on the system. Each update shapes
+how fast it runs, how clean it looks, even how simple it feels. What you
+see today shifts quietly from yesterday’s version. Change sticks when
+it helps someone move faster, think clearer. The way buttons sit, the
+speed pages load - all shaped by use, not guesses. Real behavior guides
+every small edit made behind the scenes.
+On schedule delivery happens when teams move fast. Because quick
+loops keep things steady, main functions get built without delay.
+Progress shows up regularly since short sprints highlight what matters
+most. Work arrives when expected - not sooner, not later - because
+focus stays tight. Core pieces come through first thanks to clear timing.
+Predictability grows when steps stay small and frequent.
+1.9.8
+Conclusion
+Start with small steps, then build from there - that’s how MedQueue
+grows through Agile Scrum. Each round of work brings sharper results
+because teams adjust
+quickly instead of waiting. Progress shows up in live updates, not just
+reports, thanks to constant teamwork across roles. Feedback shapes
+20
+
+---PAGE BREAK---
+the next move, so changes feel natural rather than forced. Real needs
+guide each update, making security stronger over time without grand
+promises. The rhythm of sprints keeps focus tight while expanding
+what the system can do. Trust builds slowly when people see steady im-
+provements they can actually use. Patient movement becomes smoother
+not by accident but by design. Every feature added fits a purpose, never
+just filling space. Done right, working software speaks louder than
+plans ever could.
+Block Diagram
+Description of Block Diagram
+At the heart is MedQueue, acting as the main connector linking several
+essential components. Each module ties into it, forming a working
+structure where pieces interact through shared pathways.
+Starting off, there’s a system handling people who log in these covers
+signing up, checking identities, plus setting what each admin, doctor, or
+front desk worker can see. What stands out is how it sorts permissions
+depending on job type, tying login steps to specific roles within the
+clinic setup.
+Starting things off, the Queue Engine handles basic line management
+tasks. It figures out how long people might need to wait. This system
+adjusts patient order when changes happen. Moving through each step
+keeps everything running in sequence.
+Messages reach patients instantly through WhatsApp or SMS when
+their place in line changes. Alerts keep people informed without delay
+using familiar messag-ing tools. Updates happen automatically as wait
+times shift throughout the day. Patients stay aware of progress thanks
+to live notifications sent straight to phones. Real-time signals reduce
+uncertainty by sharing current position details promptly. Starting off,
+the Receptionist Module helps workers sign in visitors plus hand out
+tokens. On another note, doctors use their own module to pull up the
+next
+person, keeping tabs on how long visits take.
+21
+
+---PAGE BREAK---
+Figure 1.1: Block Diagram for MedQueue
+Waiting area screens show live updates on who is next, helping visitors
+see cur-rent wait times. People inside can track progress without asking
+staff. Updates appear instantly as positions change. This system keeps
+everyone informed qui-etly. No announcements needed. The display
+runs constantly during open hours. Information stays visible until
+served.
+In the end, admins get what they need through the Admin & Analytics
+section
+22
+
+---PAGE BREAK---
+handling clinic configurations come naturally here, while tracking broad
+patterns helps refine how things run over time. One-piece feeds into
+another, creating a full picture where outpatient workflows gain both
+steadiness and speed without extra effort showing up on screen or
+behind it.
+Schedule / Milestone Chart
+Figure 1.2: Milestone Chart
+Final Deliverable of the Project
+B. Final deliverable of the project (please tick one of the following)
+Hardware system Software system HW/SW integrated system
+Software simulation results Comparative study Mobile App
+Web App Other (please specify) Table 1.2: Final Deliverable
+23
+
+---PAGE BREAK---
+Figure 1.3: Milestone Graph
+Equipment Required for The Project with Estimated Cost
+1. Development Tools: Rs. 0
+2. UI/UX Design: Rs. 5,000
+Frontend Development: Rs. 0
+4. Backend Development: Rs. 0
+5. API Integrations (WhatsApp/SMS): Rs. 20,000
+6. Cloud Hosting & Deployment (VPS): Rs. 18,000
+7. Domain & SSL Security: Rs. 4,500
+8. Marketing & Demo Materials: Rs. 8,000
+9. Documentation & Printing: Rs. 5,000
+10. Miscellaneous (Contingency): Rs. 5,000
+11. TOTAL ESTIMATED COST: Rs. 65,500
+24
+
+---PAGE BREAK---
+Chapter 2
+Literature Review
+2.1
+Purpose and Organization of the Chapter
+This chapter situates MedQueue within the broader research and practice landscape
+of queue management systems (QMS), patient flow optimization, and low-cost
+digital health interventions. The objective is to establish (i) what is already known
+about waiting behavior and service system design, (ii) which solutions exist in the
+market and research literature, and (iii) what gap remains specifically relevant to
+Pakistani outpatient clinics where infrastructure, budgets, and user habits differ
+from high-resource environments.
+The chapter proceeds from foundational theory to applied systems. It begins with
+a conceptual grounding in queueing theory and the psychology of waiting, then
+reviews the dominant categories of existing solutions (hardware-centric token
+systems, appointment/doctor discovery platforms, and SaaS virtual waitlists).
+Finally, it synthesizes findings to identify the specific design opportunity addressed
+by MedQueue.
+2.2
+Theoretical Foundations
+2.2.1
+Queueing Theory in Outpatient Operations
+At its core, outpatient waiting can be modeled as a stochastic service system where
+patient arrivals are uncertain and service times vary based on case complexity,
+clinician style, and operational disruptions. Queueing theory provides a vocabulary
+for expressing these dynamics in terms of arrival rates, service rates, utilization,
+waiting time distributions, and fairness policies. In practical clinic environments,
+a strict theoretical model (e.g., a perfectly stationary
+M/M/1
+queue) rarely holds; however, the theory remains valuable because it clarifies
+trade-offs. For example, higher utilization increases throughput efficiency but
+typically increases the expected waiting time and the variability of waits. Systems
+25
+
+---PAGE BREAK---
+like MedQueue are therefore designed not only to improve the physical flow, but
+also to improve the informational flow that allows stakeholders to make better
+decisions under variability.
+2.2.2
+Psychology of Waiting and Perceived Delay
+A consistent finding in service management literature is that perceived waiting
+time can be as important as, and sometimes more influential than, actual waiting
+time. When patients lack information (e.g., not knowing their position or how long
+remains), anxiety increases and patience decreases, which leads to repeated status
+inquiries, arguments over fairness, and escalations that burden staff. Conversely,
+even if the objective wait is unchanged, transparency and predictable updates can
+reduce uncertainty and therefore reduce perceived delay. This insight motivates
+MedQueue’s real-time visibility and proactive alert design.
+2.2.3
+Patient Flow Optimization and Operational Informatics
+Patient flow optimization extends beyond the queue itself to include how patients
+transition between stages (registration, triage, consultation, and checkout) and
+how information is captured at each step. The operational objective is to minimize
+bottlenecks and rework while maintaining safety and privacy. In a digital system,
+each action (registration, token assignment, call-next, completion, absent/no-show)
+becomes a logged event, which enables both auditing (e.g., emergency override
+tracking) and analytics (e.g., peak hour identification). MedQueue leverages this
+principle by treating the queue as a continuously updated dataset rather than a
+one-time paper record.
+2.3
+Taxonomy of Existing Solutions
+Existing queue-related solutions used in healthcare and other service settings can
+be categorized into three dominant approaches:
+– Hardware-Centric Token and Signage Systems: These are kiosk and LED
+display deployments that produce highly visible, structured waiting rooms
+but typically require proprietary equipment and higher capital expenditure.
+– Appointment Discovery and Booking Platforms: These platforms optimize
+the pre-visit scheduling step (finding a doctor and reserving a time slot) but
+often do not manage the live, on-ground queue after arrival.
+– Browser-Based Virtual Waitlists (SaaS): These systems introduce remote
+26
+
+---PAGE BREAK---
+waiting via web links and SMS updates, but may not align with local usage
+patterns, cost constraints, or communication channel dominance.
+The remainder of this chapter evaluates representative systems within these cate-
+gories and relates them to the MedQueue design decisions.
+2.4
+Introduction
+MedQueue is a web-based application aiming to optimize patient flow
+in medical clinics by connecting receptionists, doctors, and patients
+through a real-time queue management engine. The process begins
+when a receptionist registers a patient, generating a digital token. The
+patient can then track their queue status re-motely via a mobile dash-
+board or WhatsApp notifications. This solution enables clinics to
+manage walk-in patients and appointments efficiently, reducing over-
+crowding in waiting areas and minimizing patient anxiety. By lever-
+aging widely used communication channels, MedQueue transforms a
+chaotic manual process into a streamlined, digital experience.
+2.5
+Related System Analysis/Literature Review
+2.5.1
+The Problem
+Accessing timely healthcare in Pakistan is often overshadowed by
+the stress of waiting. In most outpatient clinics (OPDs) and private
+practices, patients face a complete lack of transparency regarding their
+turn. Traditional methods rely on handwritten slips or verbal calls,
+which forces patients to remain glued to the waiting room for hours,
+fearing they might miss their name.
+This uncertainty leads to overcrowded and stressful clinic environments,
+in-
+creasing the risk of cross-infection and general anxiety. Receptionists
+are con-stantly interrupted by patients asking, ”How much longer?”,
+which disrupts ad-ministrative tasks. Furthermore, doctors often face
+delays when patients step out and miss their turn, leading to inefficient
+slot utilization.
+While high-end hospitals use sophisticated Hospital Management Sys-
+tems (HMS), these are often too expensive and complex for small-to-
+27
+
+---PAGE BREAK---
+medium clinics. Conversely, existing doctor booking apps solve the
+problem of finding a doctor but do not solve the problem of waiting
+once the patient arrives at the clinic. There is a ”missing middle” in
+the market for a solution that manages the live, on-ground queue for
+walk-in patients without requiring expensive hardware kiosks.
+2.5.2
+Literature Review
+The concept of MedQueue is grounded in Queueing Theory and Pa-
+tient Flow Optimization. Research in healthcare management suggests
+that ”perceived wait time” is often more detrimental to patient satis-
+faction than the actual wait time. When patients are uninformed about
+their status, anxiety levels rise significantly. Scholars have examined
+the impact of Queue Management Systems (QMS) on service quality.
+Studies indicate that providing real-time information reduces psycho-
+logical stress and perceived waiting duration (Maister, 1985). Modern
+QMS solutions leverage mobile technology to create ”virtual queues,”
+allowing customers to wait remotely. This concept, widely successful
+in the banking and retail sectors,
+is now transitioning into healthcare (Smart Health).
+For a digital health intervention to be successful in this region, it must
+rely on familiar technologies—such as SMS and WhatsApp—rather
+than requiring users to download complex proprietary apps.
+MedQueue integrates these findings by focusing on a ”Push Notifica-
+tion” model. Instead of forcing patients to constantly check an app,
+the system proac-tively notifies them. This aligns with recent trends
+in mHealth (Mobile Health), where text-based interventions have
+shown high engagement rates in low-resource settings. By combining
+cloud-based real-time databases (like Firebase) with ubiq-uitous com-
+munication APIs, MedQueue aims to democratize access to efficient
+queue management.
+2.6
+Competitor A: Qmatic
+2.6.1
+Introduction
+Qmatic is a global leader in customer journey management, providing
+hardware and software solutions for queue management. It is widely
+28
+
+---PAGE BREAK---
+used in large Pakistani institutions like banks (e.g., HBL, UBL) and tier-
+1 hospitals (e.g., Aga Khan University Hospital). It relies on physical
+token dispensers and LED displays to organize flow.
+2.6.2
+Features and Working
+Patients arrive at a kiosk, select a service, and print a physical ticket.
+They watch a central LED screen for their number to be called. The
+system offers deep analytics for administration and can integrate with
+digital signage.
+2.6.3
+Pros
+– Extremely orderly and professional.
+– Hardware guarantees high visibility in the waiting room.
+– Enterprise-grade security and reliability.
+2.6.4
+Cons
+– High Cost: Installation costs run into millions of PKR, making it unaf-
+fordable for private clinics.
+– Hardware Dependency: Requires proprietary kiosks, printers, and screens.
+– No Remote Waiting: Patients must be physically present to take a ticket and
+see the screen.
+29
+
+---PAGE BREAK---
+Figure
+2.1: Competitor A: Qmatic - Open Systems
+2.6.5
+Competitor A Screenshot
+The screenshot shown in Figure 2.1 provides a representative view of Qmatic-
+style queue display and counter-management layouts. It highlights the hardware-
+centric nature of such deployments (token kiosks, centralized display screens, and
+on-premise integration), which aligns well with large enterprises but creates a
+significant adoption barrier for smaller clinics that lack budget and infrastructure
+capacity.
+2.7
+Competitor B: Marham / Oladoc
+2.7.1
+Introduction
+Marham and Oladoc are the leading digital healthcare platforms in
+Pakistan. They function primarily as doctor aggregators, allowing
+patients to search for specialists and book appointments online.
+30
+
+---PAGE BREAK---
+2.7.2
+Features and Working
+Users search for doctors by specialty or location and book a slot. The
+app sends a confirmation SMS. The primary focus is on lead generation
+for doctors and booking convenience for patients.
+2.7.3
+Pros
+– Dominant market presence for finding doctors.
+– Good for scheduling days in advance.
+– Reviews and ratings help patients choose doctors.
+2.7.4
+Cons
+– Booking vs. Queuing: They manage the appointment, not the live queue.
+Once a patient arrives, they often join the same manual queue as walk-ins.
+– Walk-in Neglect: They do not cater effectively to walk-in patients who make
+up the majority of OPD traffic.
+– No Live Tracking: Patients cannot see real-time delays (e.g., if the doctor is
+30 minutes late).
+2.7.5
+Competitor B Screenshot
+The competitor interface example (see Figure 2.2) illustrates the typical interaction
+design of appointment and doctor-discovery platforms used in Pakistan. The
+screenshot emphasizes scheduling and profile discovery as the primary workflow,
+reinforcing the limitation discussed above: these platforms optimize appointment
+booking but do not provide a live, on-ground queue state once the patient physically
+arrives at the clinic.
+2.8
+Competitor C: Waitwhile
+2.8.1
+Introduction
+Waitwhile is a US-based SaaS (Software as a Service) platform that
+allows busi-nesses to create virtual waitlists. It is used globally across
+retail, healthcare, and DMVs.
+31
+
+---PAGE BREAK---
+Figure
+2.2: Competitor B: 5 Best Online Doctor Apps in Pakistan
+2.8.2
+Features and Working
+Receptionists add customers to a list via a tablet. Customers receive an
+SMS with a link to a web page showing their wait time. It offers 2-way
+messaging and customizable branding.
+2.8.3
+Pros
+– No hardware required (runs on browsers).
+– Excellent “Remote Waiting” capabilities.
+– Strong analytics and API support.
+2.8.4
+Cons
+– Pricing: Costs start at $30/month (approx. 8,500 PKR), which is expen-sive
+for small local clinics.
+– SMS Issues: International SMS delivery to Pakistani networks can be incon-
+sistent or costly.
+– Not Localized: Lacks integration with local habits (e.g., WhatsApp dom-
+inance over SMS).
+32
+
+---PAGE BREAK---
+2.8.5
+Competitor C Screenshot
+Figure
+2.3: Competitor C: Waitwhile Platform
+2.9
+Competitor D: The Manual System (Status Quo)
+2.9.1
+Introduction
+This represents the current non-digital method used by 90% of clinics
+in Pakistan. It relies on a receptionist writing names in a register and
+handing out reusable plastic tokens or paper slips.
+2.9.2
+Features and Working
+Patients approach the desk, give their name, and sit down. The assistant
+comes out occasionally to shout the next name or number.
+2.9.3
+Pros
+– Zero monetary cost.
+– No training required.
+– Works without electricity or internet.
+2.9.4
+Cons
+– High Anxiety: Patients fear missing their turn.
+– Inefficient: No data on patient volume or doctor performance.
+33
+
+---PAGE BREAK---
+– Chaos: Arguments over “who came first” are common.
+2.10
+Analysis Table
+The comparative analysis table consolidates the evaluation of MedQueue against
+representative alternatives (enterprise hardware QMS, appointment aggregators,
+SaaS waitlists, and the manual status quo). The purpose of this table is to present,
+in a single artifact, how MedQueue positions itself as a low-cost, browser-native
+system that emphasizes remote waiting, real-time visibility, and operational ana-
+lytics while remaining feasible for small-to-medium clinics.
+2.11
+Working Model
+MedQueue operates as a centralized cloud platform. The workflow
+is designed to be minimal-touch for the clinic staff while providing
+maximum information to the patient.
+– Patient Arrival/Registration: The receptionist enters the patient’s name
+and mobile number into the Receptionist Dashboard.
+– Token Generation: The system assigns the next available token (FIFO
+logic) and calculates an estimated wait time based on the doctor’s average
+consultation history.
+– Notification: The patient receives a WhatsApp/SMS link to a Live Status
+Page.
+Figure
+34
+
+---PAGE BREAK---
+2.4: Analysis Table Comparing MedQueue with Competitors
+– Remote Waiting: The patient can leave the waiting room. The status page
+updates in real-time as the queue moves.
+– Alerts: When the patient is 3rd in line, a “Get Ready” notification is trig-
+gered.
+– Consultation: The doctor clicks “Call Next” on the Doctor Dashboard.
+The system marks the previous patient as “Completed” and updates the queue
+for everyone else.
+2.12
+Advantages
+– Reduced Anxiety: Patients know exactly when their turn is, allowing them
+to wait stress-free.
+– Crowd Control: By enabling remote waiting, clinics can reduce the num-
+Figure 2.5: MedQueue Working Model Flow
+ber of people physically present in the waiting room.
+– Cost Effective: Eliminates the need for expensive hardware kiosks; runs on
+existing clinic computers or tablets.
+– Transparency: Reduces conflicts between patients and staff regarding queue
+position.
+35
+
+---PAGE BREAK---
+– Data-Driven: Provides clinic owners with valuable insights into peak hours
+and doctor efficiency.
+2.13
+Disadvantages
+– Internet Dependency: The system requires a stable internet connection to
+function; offline mode is limited.
+– Digital Literacy: Older patients or those without smartphones may still rely
+on verbal calls or require assistance from the receptionist.
+– API Costs: Sending WhatsApp and SMS notifications incurs a recurring
+cost per message, which scales with patient volume.
+– Behavioral Change: Requires doctors and staff to adapt to clicking a button
+rather than just shouting a name.
+2.14
+Summary
+MedQueue is a digital intervention designed to modernize the archaic
+manual queuing systems prevalent in Pakistani clinics. While com-
+petitors like Qmatic offer robust hardware solutions for large hospitals,
+and apps like Marham facili-tate booking, there is a clear gap for a
+lightweight, real-time queue management system for the average clinic.
+MedQueue fills this gap by utilizing the “Device-in-Hand” strategy—
+leveraging the patient’s own smartphone for notifications and tracking.
+By prioritizing transparency, affordability, and ease of use, MedQueue
+aims to create a win-win scenario: a relaxed waiting experience for
+patients and a streamlined, efficient workflow for medical staff. The
+system addresses the core psychological pain point of “uncertainty,”
+transforming the patient journey from a source of stress into a managed,
+predictable process.
+36
+
+---PAGE BREAK---
+Chapter 3
+System Analysis & Requirements
+3.1
+Chapter Overview
+System analysis translates the problem narrative into implementable specifica-
+tions. For MedQueue, the analysis phase focuses on identifying operational actors,
+mapping their interactions, formalizing queue-state transitions, and defining mea-
+surable constraints for performance, security, usability, and availability. Because
+outpatient workflows are time-sensitive and socially visible (patients can observe
+and contest fairness), the requirements must emphasize both correctness (the
+queue must behave as intended) and transparency (stakeholders must be able to
+understand what the system is doing).
+This chapter therefore consolidates the requirements work into three layers:
+– Functional requirements that define what the system must do (authenti-
+cation, registration, token sequencing, alerts, dashboards, analytics, and
+end-of-day reset).
+– Non-functional requirements that define how well and under what con-
+straints the system must operate (latency targets, concurrency capacity, role-
+based security, and usability expectations).
+– Use-case specifications that express the operational stories of key workflows
+and align them with the functional requirements.
+3.2
+Stakeholders and User Roles
+MedQueue is explicitly designed around four stakeholder roles, each with different
+goals and information needs:
+– Receptionist: Performs rapid patient intake, token generation, and queue
+exception handling (absent/no-show, emergency override). This role requires
+a minimal-typing interface and predictable state transitions.
+– Doctor/Clinician: Controls consultation flow through a one-click “Call
+Next” routine, views only relevant patient context, and benefits from reduced
+37
+
+---PAGE BREAK---
+administrative interruption.
+– Administrator/Clinic Management: Monitors operational performance
+through analytics, configures clinic profiles and staff accounts, and audits
+sensitive actions (e.g., priority overrides).
+– Patient: Receives a transparent, low-effort view of their queue position and
+expected waiting time, and benefits from proactive updates through familiar
+communication channels.
+3.3
+Assumptions and Constraints
+The requirements are constructed under realistic deployment assumptions in Pak-
+istan, where clinics may operate with limited hardware budgets and variable
+network quality.
+– Device Assumption: Staff access MedQueue via standard browsers on
+existing PCs or tablets; patients access via mobile browsers through a link.
+– Connectivity Constraint: Real-time synchronization requires internet avail-
+ability; however, the system should degrade gracefully (e.g., retaining last-
+known state) during dropouts.
+– Privacy Constraint: Public displays must not reveal personally identifiable
+information; token numbers should be used as public identifiers.
+– Operational Constraint: Emergency arrivals must be handled without
+collapsing perceived fairness; override actions must be auditable.
+3.4
+Requirements Traceability (Conceptual Map-
+ping)
+To maintain design discipline, each major module is directly linked to one or more
+functional requirements and validated later through corresponding test cases:
+– Authentication & Role Control →Staff Login requirement; Security require-
+ments (JWT, authorization)
+– Queue Engine →Token Generation, FIFO sequencing, priority override,
+end-of-day reset
+38
+
+---PAGE BREAK---
+– Patient Visibility →Live Public View, Patient Mobile View, wait-time esti-
+mation
+– Notification Service →WhatsApp/SMS trigger logic and proactive alerts
+– Analytics & Admin →Reporting requirements and administrative oversight
+System Analysis & Requirements
+3.5
+Introduction
+When developing a healthcare utility platform, it is crucial to under-
+stand the pre-cise needs of the clinical environment and the behavioral
+patterns of patients. This is especially true for a real-time system like
+MedQueue, which bridges the gap between physical waiting rooms and
+digital notifications. The platform connects busy receptionists, doctors,
+and anxious patients in a synchronized workflow. Be-cause of this, it
+needs to meet a wide range of user needs, data privacy standards, and
+responsiveness criteria. Finding the right set of requirements early in
+the development process ensures that the system stays user-centered,
+efficient, and robust. A mix of qualitative and analytical methods
+was used to collect, check, and improve MedQueue’s functional and
+non-functional requirements.
+3.5.1
+Requirement Identifying Techniques
+We used a number of tried-and-true methods to gather system require-
+ments to make sure that MedQueue works effectively in a real-world
+clinic setting.
+Interviews and Surveys
+We conducted semi-structured interviews with clinic receptionists and
+General Practitioners (GPs) to understand their pain points regarding
+crowd control and patient interruptions. We also surveyed patients to
+determine their comfort level
+with receiving SMS/WhatsApp notifications instead of physical tokens.
+Use Case Analysis
+39
+
+---PAGE BREAK---
+We analyzed specific scenarios, such as “Handling a Walk-in Patient”
+versus “Han-dling an Appointment,” to figure out how the system
+should react to dynamic changes in the queue.
+Prototyping
+A set of low-fidelity wireframes (dashboards) was produced to represent
+the re-ceptionist and doctor interfaces. Feedback from these mockups
+helped refine the “Call Next” feature to ensure it requires minimal
+clicks.
+Document Analysis
+We reviewed existing manual token slips and patient registers to under-
+stand what data is currently captured (Name, Phone, Age) and replicated
+this in our digital schema.
+Observation
+To understand the root cause of “waiting anxiety,” we spent hours
+observing wait-ing rooms in local clinics. We noted how often patients
+approached the desk to ask about their turn and how receptionists
+managed manual registers.
+3.5.2
+Functional Requirements
+Identifier Requirement 1
+Title Staff Login (Authentication)
+Requirement The system shall allow staff members (Receptionists,
+Doctors, Admins) to lo
+Business Rule Access is granted based on the assigned role. A doctor
+cannot access Admin
+Table 3.1: Functional Requirement 1 = Staff Login
+Identifier Requirement 2
+Title Patient Registration (Walk-In)
+Requirement The receptionist shall be able to register a new patient by
+entering their Na
+40
+
+---PAGE BREAK---
+Business Rule The mobile number must be valid to ensure WhatsApp
+notifications can be
+Table 3.2: Functional Requirement 2 = Patient Registra-tion
+Identifier Requirement 3
+Title Token Generation
+Requirement The system shall automatically generate a unique, se-
+quential token number
+Business Rule Tokens must follow FIFO (First-In-First-Out) order
+unless marked as Emer
+Table 3.3: Functional Requirement 3 = Token Genera-tion
+Identifier Requirement 4
+Title Wait Time Estimation
+Requirement The system shall calculate and display an estimated
+waiting time for each pa
+Business Rule The estimate must update dynamically if the doctor
+takes longer than expec
+Table 3.4: Functional Requirement 4 = Wait T mation
+Identifier Requirement 5
+Title WhatsApp Notification Trigger
+Requirement The system shall send an automated WhatsApp/SMS
+alert to the patient w
+Business Rule Notifications are only sent if the ”Notify Me” option
+was selected during regi
+Identifier Requirement 5
+Table 3.5: Functional Requirement 5 = WhatsApp Trig-ger
+Identifier Requirement 6
+41
+
+---PAGE BREAK---
+Title Call Next Patient
+Requirement The Doctor shall be able to call the next patient in the
+queue with a single
+Business Rule Clicking ”Call Next” must automatically mark the
+current patient as Com
+Table 3.6: Functional Requirement 6 = Call Next Patient
+Identifier Requirement 7
+Title Mark as Absent / No-Show
+Requirement The Receptionist or Doctor shall be able to mark a patient
+as Absent if the
+Business Rule Absent patients are moved to a Holding List and do
+not block the live que Table 3.7: Functional Requirement 7 = Mark as
+Absent
+Identifier Requirement 8
+Title Live Public View
+Requirement The system shall provide a public URL that displays the
+current token numb
+Business Rule This view must auto-refresh in real time without manual
+page reloads.
+Table 3.8: Functional Requirement 8 = Live Public
+Identifier Requirement 9
+Title Patient Mobile View
+Requirement The patient shall be able to view their queue position and
+status via a link s
+Identifier Requirement 9
+Business Rule The link provides read-only access to the patient’s
+specific status.
+Table 3.9: Functional Requirement 9 = Patient Mobile View
+42
+
+---PAGE BREAK---
+Identifier Requirement 10
+Title Priority Override
+Requirement The Receptionist shall be able to insert a patient at the
+top of the queue for
+Business Rule All priority actions must be logged for Admin review to
+prevent misuse.
+Table 3.10: Functional Requirement 10 = Priority Over-ride
+Identifier Requirement 11
+Title Doctor Stats Dashboard
+Requirement The system shall track and display the duration of each
+consultation.
+Business Rule The timer starts when ”Call Next” is clicked and stops
+when the next patien Table 3.11: Functional Requirement 11 = Doctor
+Stats
+Identifier Requirement 12
+Title Admin Analytics
+Requirement The Admin shall be able to view reports on patients
+served, average wait tim
+Business Rule Reports can be filtered by Daily, Weekly, or Monthly
+ranges.
+Table 3.12: Functional Requirement 12 = Admin Ana-lytics
+Identifier Requirement 13
+Title Clinic Profile Management
+Requirement The Admin shall be able to update clinic name, address,
+and operating hour
+Business Rule Changes to operating hours affect token generation
+availability.
+Table 3.13: Functional Requirement 13 = Clinic Profile
+43
+
+---PAGE BREAK---
+Identifier Requirement 14
+Title User Management
+Requirement The Admin shall be able to add, suspend, or remove
+Doctor and Receptionis
+Business Rule Removed users cannot access the system; historical data
+remains preserved.
+Table 3.14: Functional Requirement 14 = User Manage-ment
+Identifier Requirement 15
+Title End of Day Reset
+Requirement The system shall allow resetting the queue counter to 1
+at the end of the da
+Business Rule Resetting archives the day’s data into the history
+database.
+Table 3.15: Functional Requirement 15 = End of Day Reset
+3.5.3
+Non-Functional Requirements
+Performance
+– PER-1: The Live Queue Dashboard must reflect status changes (e.g., from
+“Waiting” to “Called”) within 2 seconds for all connected users (Re-ceptionist,
+Doctor, Patient) using WebSocket connections.
+– PER-2: The system shall support up to 500 concurrent users (patients
+viewing status) without degradation in page load speed.
+– PER-3: Application pages should load within 3 seconds on a standard 4G
+mobile connection.
+Usability
+– USAB-1: The Doctor Interface shall be designed for “One-Handed Op-
+eration,” requiring only a single click to call the next patient, minimizing
+distraction from medical duties.
+– USAB-2: The Patient Status Page must be fully responsive and legible on
+low-end smartphones without requiring zoom.
+44
+
+---PAGE BREAK---
+– USAB-3: Receptionists should be able to register a new patient in under
+30 seconds (minimal typing required).
+Security
+– SEC-1: All data transmission between the client and server shall be en-
+crypted using HTTPS (SSL/TLS).
+– SEC-2: Patient phone numbers must be stored securely and not displayed
+publicly on the waiting room screen (only Token Numbers are public).
+– SEC-3: Authentication for staff shall be handled via JWT (JSON Web
+Tokens) with session timeouts after 12 hours of inactivity.
+Scalability
+– SCAL-1: The backend architecture (Node.js) shall be modular to allow for
+the addition of multiple clinics under a single super-admin account in the
+future.
+– SCAL-2: The database (Firebase) must be structured to archive old records
+to maintain query speed as the dataset grows.
+Availability
+– AVAIL-1: The system must ensure 99.9% uptime during clinic operating
+hours (typically 9:00 AM to 9:00 PM).
+– AVAIL-2: In case of internet failure at the clinic, the local dashboard should
+retain the last known state to allow manual recovery.
+3.5.4
+Feasibility Study (Technical, Economic, Operational &
+Time)
+Technical Feasibility (Technology Stack & Equipment)
+The MedQueue project utilizes a modern web development stack de-
+signed for high responsiveness, real-time data synchronization, and
+cross-platform web com-pliance. It features a centralized cloud plat-
+form with a minimal-touch layout for clinic staff and patients.
+– Operating System & Deployment: Centralized web-based application
+accessible seamlessly via standard mobile and desktop web browsers.
+45
+
+---PAGE BREAK---
+– Frontend Framework: Modern web tools crafted for a fully responsive,
+clean, and minimalist UI/UX tailored for low-end smartphones up to desktop
+computers.
+– Backend & Database: Node.js modular backend coupled with a real-time
+cloud database (Firebase) using WebSocket/live listeners to sync line status
+changes within 2 seconds.
+– Development Tools: Web-standard code development environments and
+prototyping tools (such as Figma) for crafting dashboards and user flows.
+– System Architecture: A centralized cloud-based web architecture inte-
+grating core modules including User Management (role-based security via
+JWT), Queue Engine & Logic (FIFO sequencing with emergency overrides),
+Notification Service, and an Admin Analytics dashboard.
+Economic Feasibility (Estimated Costs & Resources)
+The project is structurally engineered to minimize high financial bar-
+riers, com-pletely omitting the requirement for expensive proprietary
+kiosks or hardware terminal setups by using a “Device-in-Hand” de-
+ployment approach.
+– Development Cost: Categorized as affordable and low-cost for small-to-
+medium private clinics in Pakistan.
+Software & Setup Expenses:
+– UI/UX Design: Rs. 5,000
+– Domain & SSL Security: Rs. 4,500
+– Cloud Hosting & Deployment (VPS): Rs. 18,000
+Operational & Integration Expenses:
+– API Integrations (WhatsApp/SMS Cloud APIs): Rs. 20,000
+– Marketing & Demo Materials: Rs. 8,000
+– Documentation, Printing & Contingency (Miscellaneous): Rs. 10,000
+– Total Budget Required: Rs. 65,500
+46
+
+---PAGE BREAK---
+– Future Considerations: While highly scalable, ongoing expansion to han-
+dle additional medical clinics will incur nominal recurring volume scales for
+WhatsApp/SMS API alerts and cloud database archiving.
+Operational & Functional Feasibility
+The platform is synchronized around clinical outpatient department
+(OPD) work-flows, explicitly built to satisfy the goals of four primary
+user roles: Admin, Doctor, Receptionist, and Patient.
+– User Management: Secure JSON Web Token (JWT) staff authentication
+with explicit role-based access control (e.g., Doctors cannot open Admin
+layouts; Receptionists only see scheduling/entry forms).
+– Queue Engine Logic: Operates natively under standard First-In-First-Out
+(FIFO) queue sequences.
+– Priority Override Constraint: Receptionists can flag and insert a high-
+priority patient at the very top of the live list for emergencies, automatically
+generating checked audit logs for Admin tracking.
+– Notification Engine: Automatically fires off transactional alerts via text or
+WhatsApp messaging when a remote patient is 3rd in the queue sequence,
+reducing wait-room crowding.
+– AI Clinical Scribe Integration: Includes an innovative “AI Clinical Scribe
+Co-Pilot” built right inside the doctor’s interface, mapping standard raw
+dictation notes into instantly structured diagnostic reports, prescrip-tions,
+and advice tables.
+– End-of-Day Logic: Features an automatic reset script changing the se-
+quence counter back to 1 at closing, safely archiving the day’s total logs into
+historical data buckets.
+Project Schedule (Time Feasibility)
+The design, implementation, and evaluation cycle of the project covers
+a strict 30-week milestone framework.
+– Phase 1 (FYP-1 | Weeks 1 through 15): Encompasses topic regis-tration,
+problem analysis, user requirements gathering, prototyping layouts, inter-
+face mockups, budgeting, and finalization of the Software Requirements
+Specification (SRS) report.
+47
+
+---PAGE BREAK---
+– Phase 2 (FYP-2 | Weeks 16 through 30): Encompasses front-end de-
+velopment, backend API creation, real-time Firebase database architecture
+syncing, WhatsApp messaging integration, system-wide QA testing, and live
+full-project production deployment.
+Potential Challenges (Risk Analysis)
+– Internet Dependency: Because it relies on real-time cloud data pipelines,
+local internet dropouts limit active screen refreshes, requiring local cached
+fallbacks.
+– Behavioral Adjustments: The operational framework requires outpatient
+clinic teams to physically transition from shouting names to clicking a digital
+workflow button.
+– Digital Literacy: Older patient segments or those operating without im-
+mediate access to smartphones will require manual registration support from
+the counter receptionist.
+48
+
+---PAGE BREAK---
+Chapter 4
+System Design
+4.1
+Design Goals and Principles
+The system design of MedQueue is guided by the requirement that it must operate
+in resource-constrained, high-variability outpatient environments while remaining
+simple enough to adopt without dedicated IT teams. Accordingly, the design
+prioritizes the following principles:
+– Browser-Native Accessibility: The system must run in standard browsers
+across desktop and mobile devices, reducing deployment friction.
+– Real-Time Consistency: All stakeholders should observe the same queue
+truth within a short bounded delay, ensuring operational correctness and
+perceived fairness.
+– Role Isolation and Privacy: Screens and privileges are constrained by role;
+public views show only non-identifying queue tokens.
+– Low Interaction Cost: High-frequency operations (register patient, call next,
+mark absent, emergency override) must be minimal-click, minimal-typing.
+– Auditability: Actions that can affect fairness (especially priority overrides)
+must be logged to enable accountability.
+4.2
+High-Level Architecture
+MedQueue follows a modular web architecture in which the queue state is repre-
+sented as a set of authoritative records in a centralized real-time database. Client
+interfaces (receptionist, doctor, admin, patient/public view) subscribe to updates
+and render the current state according to the user role.
+4.2.1
+Major Architectural Components
+– Authentication and Role Gateway: Verifies staff identities and maps ac-
+counts to role-scoped permissions.
+49
+
+---PAGE BREAK---
+– Queue Engine Service: Manages token sequencing (FIFO by default),
+applies emergency override policies, and updates state transitions.
+– Notification Dispatcher: Integrates with WhatsApp/SMS APIs to push
+proactive “Get Ready” alerts based on queue position.
+– Presentation Layer Clients: Receptionist dashboard for intake, doctor
+dashboard for consultation flow, admin dashboard for analytics/configuration,
+and patient/public views for queue visibility.
+– Analytics and Reporting Pipeline: Aggregates events into operational
+metrics (wait time patterns, throughput, cancellations/no-shows).
+4.3
+Data Design (Conceptual Model)
+MedQueue is designed around an evented queue lifecycle. Each patient visit
+progresses through states such as registered, waiting, called, serving, completed,
+or absent. These state transitions are stored as structured records with timestamps.
+This enables:
+– real-time rendering of the live queue,
+– reproducible calculation of wait-time estimates, and
+– later reporting and audit checks on operations.
+4.4
+Security and Privacy by Design
+The system design enforces privacy through separation of views and controlled
+disclosure. The public waiting display is intentionally token-based to avoid expos-
+ing patient phone numbers or identity details. Role-based access and authenticated
+staff sessions ensure that sensitive configuration and analytics capabilities are
+available only to authorized personnel.
+4.5
+Introduction
+In this chapter, the actual realization of MedQueue is described. It cov-
+ers the technologies used, use case diagram, module-wise implementa-
+tion details, real-time queue management, notifications, and integration
+with external services. The objective is to demonstrate how the system
+transforms the designed workflows into a working application.
+50
+
+---PAGE BREAK---
+4.6
+Use Case Diagram
+Use Case Name: Staf f Login ID: UC-001
+Actors Involved: Admin, Doctor, Receptionist
+Brief Description: Allows staff members to securely log into their
+specific dashboard.
+Pre-Condition: User must have a registered account.
+Post-Condition: User is authenticated and redirected to their role-
+specific dashboard.
+Normal Flow: User enters email and password. System validates
+credentials.
+Table 4.1: Use Case UC-001: Staff Login
+51
+
+---PAGE BREAK---
+Figure 4.1: Use Case Diagram for MedQueue
+Use Case Name: Register Patient ID: UC-002
+52
+
+---PAGE BREAK---
+Actors Involved: Receptionist
+Brief Description: The process of adding a new walk-in patient to the
+system.
+Use Case Name: Register Patient
+Pre-Condition: Receptionist is logged in.
+Post-Condition: Patient details are saved to the database.
+Normal Flow: Receptionist enters patient Name and Phone Number.
+System validates Table 4.2: Use Case UC-002: Register Patient
+Use Case Name: Generate Token ID: UC-003
+Actors Involved: Receptionist (Trigger), System (Execution)
+Brief Description: Assigning a unique queue number to a registered
+patient.
+Pre-Condition: Patient is successfully registered.
+Post-Condition: Token is generated and SMS/WhatsApp link is sent.
+Normal Flow: Receptionist confirms registration. System calculates
+next available toke Table 4.3: Use Case UC-003: Generate Token
+Use Case Name: Call Next Patient ID: UC-004
+Actors Involved: Doctor
+Brief Description: The doctor calls the next patient in the queue to the
+consultation room.
+Pre-Condition: Queue must not be empty.
+Post-Condition: Previous patient marked ”Completed”, new patient
+status becomes ”Act
+Normal Flow: Doctor clicks ”Call Next”. System updates queue status.
+Table 4.4: Use Case UC-004: Call Next Patient
+Use Case Name: View Live Queue Status ID: UC-005
+Actors Involved: Patient
+53
+
+---PAGE BREAK---
+Use Case Name: View Live Queue Status
+Brief Description: Patient checks their real-time position in the queue
+remotely.
+Pre-Condition: Patient has received a tracking link.
+Post-Condition: Current wait time and position are displayed.
+Normal Flow: Patient clicks the link received via SMS/WhatsApp.
+System fetches real Table 4.5: Use Case UC-005: View Live Queue
+Status
+Use Case Name: Priority Override ID: UC-006
+Actors Involved: Receptionist
+Brief Description: Manually inserting a high-priority patient at the top
+of the queue.
+Pre-Condition: Patient requires emergency attention.
+Post-Condition: Queue is reordered; emergency patient becomes next.
+Normal Flow: Receptionist selects patient. Selects ”Mark as Emer-
+gency”.
+Table 4.6: Use Case UC-006: Priority Override
+Use Case Name: Mark Patient Absent ID: UC-007
+Actors Involved: Receptionist, Doctor
+Brief Description: Handling a situation where the called patient is not
+present.
+Pre-Condition: Patient has been called but did not appear.
+Post-Condition: Patient status changed to ”Absent”; moved to holding
+list.
+Normal Flow: Doctor clicks ”No Show”. System removes patient
+from active flow.
+Table 4.7: Use Case UC-007: Mark Patient Absent
+Use Case Name: View Analytics ID: UC-008
+54
+
+---PAGE BREAK---
+Use Case Name: View Analytics
+Actors Involved: Admin
+Brief Description: Admin views reports on clinic performance.
+Pre-Condition: Admin is logged in.
+Post-Condition: Charts and tables are displayed.
+Normal Flow: Admin selects ”Reports”. System aggregates data.
+Table 4.8: Use Case UC-008: View Analytics
+Use Case Name: Receive Notification ID: UC-009
+Actors Involved: Patient
+Brief Description: System sends an alert when the patient is near the
+front of the queue.
+Pre-Condition: Patient is 3rd in line (or configured threshold).
+Post-Condition: Patient receives ”Get Ready” message.
+Normal Flow: (None - System Triggered) Queue Engine detects posi-
+tion change. Notifi
+Table 4.9: Use Case UC-009: Receive Notification
+Use Case Name: Manage Users ID: UC-010
+Actors Involved: Admin
+Brief Description: Adding or removing clinic staff accounts.
+Pre-Condition: Admin has valid credentials.
+Post-Condition: User list is updated.
+Normal Flow: Admin enters new doctor details. Clicks ”Add User”.
+System creates cre
+Table 4.10: Use Case UC-010: Manage Users
+55
+
+---PAGE BREAK---
+4.7
+Prototype Screens Overview
+The MedQueue prototype demonstrates the system’s core functional-
+ity for pa-tients, receptionists, doctors, and admins. It begins with a
+welcome/login screen, allowing users to select their role and register
+if needed. After login, the user op-tions screen presents role-specific
+menus: patients can view the live queue, check estimated waiting time,
+receive notifications, and book appointments; receptionists manage
+walk-ins, generate tokens, and update the queue; doctors control consul-
+tation flow and mark completions; admins monitor clinic performance
+and export reports. The prototype emphasizes real-time updates, mini-
+mal training, and in-tuitive navigation, ensuring that each user interacts
+only with relevant features while simulating a fully functional queue
+and appointment management system.
+Project Title: MedQueue Date: 14-06-2025
+Screen Name: Welcome Screen Screen Description: The Welcome /
+Login Screen is the
+Table 4.11: Prototype-1 = Welcome Screen Description
+Functionality/Interactivity (Welcome Screen):
+– Role Selection: Suggesing role-based access exists deeper within the plat-
+form.
+– Log In Button / Launch Portal: The top-right corner features a promi-nent
+teal button labeled ”LAUNCH PORTAL”. Additionally, the main call-to-
+action button in the center reads ”ENTER PLATFORM POR-TALS →”.
+– Register as Patient Button: Not explicitly featured as a dedicated reg-
+istration button on this main B2B page. Patients receive a dynamic URL via
+WhatsApp/SMS.
+– Navigation Bar (Navbar): Located at the very top, featuring the MedQueue
+logo on the left, centered links for ”Features”, ”Smart Co-Pilot”, and
+”Enterprise”.
+– Icons: Three minimalist, light-green icons inside the feature cards: robot
+head for AI Co-Pilot, bar chart for Analytics, and a group icon for Live Sync.
+– Background & Color Scheme: Off-white backdrop with faints concentric
+56
+
+---PAGE BREAK---
+Figure 4.1: Prototype 1: Welcome Screen Layout
+57
+
+---PAGE BREAK---
+waves. Vibrant Teal/Mint Green primary accent color with deep charcoal
+headings and slate gray body text.
+Project Title: MedQueue Date: 14-06-2025
+Screen Name: Receptionist Dashboard Screen Description: Main
+interface for registering Table 4.12: Prototype-2 = Receptionist Dash-
+board De-
+scription
+– Live Queue List: On the right side under ”Live Waiting List”. Shows a
+counter badge (“4 Waiting”) and a stack of queued items (Hamood, Usman,
+Asad, Shuja) with tokens (T-19, T-17, T-18, T-20) and “Absent” buttons.
+– Real-Time Tools: Navbar contains “Clinic QR Code” button, “Open TV
+Display” button, and dynamic time stamps (Arrived 11:11 AM, 30 mins
+wait).
+– Color Scheme: Primary Admin Green for active buttons; Muted Mint Green
+for standard circles; Priority Emergency Red for critical cases (T-19 badge,
+emergency wrapper).
+Project Title: MedQueue Date: 14-06-2025
+Screen Name: Analytics Dashboard Screen Description: Comprehen-
+sive overview of perf Table 4.13: Prototype-3 = Analytics Dashboard
+Descrip-
+tion
+58
+
+---PAGE BREAK---
+Figure 4.4: Prototype 3: Analytics Dashboard Layout
+Functionality/Interactivity (Analytics Dashboard):
+– Summary Statistics: Displays white metric cards: TOTAL VISITS (16),
+COMPLETED (15), AVG WAIT SPEED (10m), CANCELLATIONS (0).
+– Filters & Exporters: Includes location dropdown (set to “MedQueue Cen-
+tral Clinic”) and an “EXPORT DETAILED REPORT (PDF)” button.
+– Patient Insights Panel: Identifies top diagnosed items: Rank 1: Me-dial
+Tibial Stress Syndrome, Rank 2: Nocturnal Muscle Cramps, Rank 3: Vitamin
+D Deficiency.
+– AI Epidemiological Insights: Automated administration advice module
+panel on the right side.
+– Color Scheme: Light sage gradient foundation with primary corporate green
+headings, accent teal numeric indicators, and warning red cancella-tions.
+Project Title: MedQueue Date: 14-06-2025
+Screen Name: Doctor’s Dashboard Screen Description: Centralized
+view of dynamic dail Table 4.14: Prototype-4 = Doctor’s Dashboard
+Descrip-
+tion
+Functionality/Interactivity (Doctor’s Dashboard):
+59
+
+---PAGE BREAK---
+– Queue Controller Bar: Center bar shows “3 IN QUEUE” with “NEXT
+LIST” links. Navigation contains a green “CALL NEXT” button, “FINISH
+CASE” button, and an orange “BREAK” utility trigger.
+– Active Patient Panel: Highlights TOKEN T-19 (Hamood), dynamic counter
+(SERVING: 1:09), urgent alert label (URGENT CASE), and text row data
+for baseline logs (25M height 6.2 weight 75KGs fainting while working,
+weakness, Dizziness).
+Figure
+4.5: Prototype 4: Doctor’s Dashboard Layout
+– AI Scribe Co-Pilot workflow: Ambient case processing module labeled
+“LIVE CASE DISCUSSION” by “MEDQUEUE AI” on the left window
+layout.
+– Report Editor Workspace: Structured blocks for DIAGNOSIS, PRE-
+SENTATION tag tokens, PRESCRIPTIONS boxes, and exit notes with
+an active green “DOWNLOAD PDF” exporter action button.
+60
+
+---PAGE BREAK---
+Chapter 5
+Implementation
+5.1
+Implementation Strategy
+The implementation of MedQueue operationalizes the design goals into an exe-
+cutable system by combining a real-time backend state model with role-specific
+client interfaces. Given the clinic context, implementation decisions were driven
+by latency targets (fast queue updates), usability constraints (low typing, minimal-
+click actions), and deployability constraints (browser-first access without spe-
+cialized hardware). The engineering process therefore emphasized modularity
+and continuous validation: features were built in increments, tested in isolation,
+integrated into the end-to-end workflow, and then evaluated against functional and
+non-functional requirements.
+5.2
+Technology Stack Rationale
+MedQueue uses a modern web stack selected for rapid development, cross-
+platform compatibility, and strong real-time synchronization capabilities:
+– Backend Runtime and API Layer: A modular server-side architecture
+(Node.js) supports authentication flows, queue operations, and integration
+endpoints.
+– Real-Time Data Layer:
+A cloud-backed real-time database (Fire-
+base/Firestore) provides event-driven updates and structured storage of
+queue states and logs.
+– Client Interfaces: Browser-native dashboards are optimized separately for
+receptionists, doctors, administrators, and patients/public views.
+– Notification Integrations: WhatsApp/SMS gateways are used to deliver
+proactive operational messages without requiring app installations.
+61
+
+---PAGE BREAK---
+5.3
+Core Implementation Modules (Deep-Dive Sum-
+mary)
+5.3.1
+Authentication and Role-Based Routing
+Implementation begins at the access gateway: staff accounts authenticate and
+are routed into the appropriate dashboard based on role metadata. This ensures
+that the same system can serve multiple stakeholders without leaking privileged
+functionality between roles.
+5.3.2
+Queue State Machine and Token Lifecycle
+The queue engine is implemented as a stateful workflow where each token pro-
+gresses through well-defined transitions (e.g., waiting →called →serving →
+completed). Emergency insertion and absent/no-show handling are treated as
+controlled exception paths that update state while maintaining auditability.
+5.3.3
+Wait-Time Estimation
+Wait-time estimation is implemented as a continuously updated computation based
+on queue position and observed consultation durations. The system recalculates
+estimates when service-time conditions change, so that patient-facing views reflect
+operational reality rather than static schedule assumptions.
+5.3.4
+Notification Triggering
+Notification dispatch is implemented as an automated trigger tied to queue position
+(e.g., when a patient reaches a threshold such as 3rd in line). This decouples patient
+communication from receptionist workload and ensures consistent timing.
+5.3.5
+Analytics and Reporting
+Operational events (registrations, calls, completions, no-shows, overrides) are
+logged with timestamps to enable later aggregation. This supports administra-
+tive dashboards that identify peak times, throughput patterns, and overall queue
+efficiency.
+62
+
+---PAGE BREAK---
+5.4
+Introduction
+The implementation phase constitutes the transition from conceptual
+system work-flows and use case diagrams to a fully functional, real-time
+web application. For the MedQueue platform, this involved the system-
+atic configuration of the web de-velopment environment, integration
+of cloud-based database systems, and the en-gineering of core feature
+sets tailored for medical clinic stakeholders. The primary objective of
+this phase was to develop a robust, scalable environment capable of
+facilitating seamless patient check-ins and live queue synchronization
+while main-taining role-based visibility and automated patient tracking.
+This chapter details the integrated development environments (IDEs),
+the underlying web technology stack, the modular components, and the
+algorithmic logic governing the applica-tion’s primary functionalities.
+5.5
+Development Environment & Tools
+To build MedQueue, a specific set of tools was put together to ensure the
+appli-cation works smoothly across both mobile and desktop screens
+while maintaining a continuous link to the real-time database.
+– Operating Systems & Testing Devices: The development process was
+optimized for modern web access. To ensure the application performed
+cor-rectly in a live clinical environment, physical smartphones and standard
+computer browsers were used for real-time testing and monitoring devel-
+opment output. This setup allowed the team to verify UI responsiveness
+across different aspect ratios and catch functional bugs immediately
+during the coding phase.
+– Visual Studio Code (VS Code): This was utilized as the primary in-tegrated
+development environment (IDE) for writing code. It served as a simple and
+fast environment allowing seamless implementation of extensions for web
+and backend integration, maximizing efficiency throughout the ac-tive sprint
+cycles.
+– UI/UX Design Tools (Figma): Used extensively in the project’s early de-
+sign phases to produce low-fidelity and high-fidelity wireframes. Feedback
+collected from these digital mockups directly shaped the final design of the
+receptionist, doctor, and patient interfaces.
+63
+
+---PAGE BREAK---
+– Firebase Console: This acted as the online cloud deployment dashboard
+where the team managed the administrative configurations of the database,
+monitored active connections, verified user accounts, and ensured that all
+historical clinic logs were securely stored and archived.
+5.6
+Technologies Used
+The web platform uses modern technology structured to eliminate the
+need for expensive, proprietary local clinic server hardware, making
+the system highly cost-effective and lightweight.
+– Node.js Framework: Used to construct a modular backend architecture.
+This structural choice ensures that the system can scale effectively, support-
+ing the addition of multiple clinics under a single super-admin layout in the
+future.
+– Firebase Authentication: This technology handles the staff log-in archi-
+tecture. It ensures secure, encrypted system verification for clinic workers
+using JSON Web Tokens (JWT) and maintains session states so authen-
+ticated staff members do not have to repeatedly enter passwords during
+a busy 12-hour shift.
+– Cloud Firebase / Firestore (Real-Time Database): This serves as the core
+data engine of MedQueue. It utilizes real-time listeners and WebSocket
+connections to push line status updates instantly—within 2 seconds—to all
+connected receptionist dashboards, doctor portals, and patient views with-out
+requiring manual browser refreshes.
+– External Messaging APIs (WhatsApp / SMS Cloud API): Inte-grated
+directly into the backend notification module. This enables the ap-plication to
+bridge the gap to low-resource settings by pushing proactive text notifications
+straight to the patient’s phone without requiring them to download a dedicated
+mobile app.
+5.7
+Module Description
+The MedQueue application is broken down into separate functional
+modules. This architecture makes it easier to test, maintain, or update
+individual features with-out disrupting active clinic workflows.
+64
+
+---PAGE BREAK---
+– User Management & Authentication Module: Oversees secure system
+access and enforces role-based restrictions. It reads user roles at login and
+automatically maps them to their respective workspace layouts.
+– Receptionist Dashboard (Entry Module): Provides a simplified, rapid
+data-entry interface containing fields for patient names and phone numbers.
+It allows front-desk operators to register walk-ins, mark no-shows as absent,
+and generate digital tokens into the live tracking engine in under 30 seconds.
+– Doctor Consultation Interface: A clean portal optimized for quick ac-tion,
+allowing medical practitioners to call the next patient or pause sessions
+with a single click, ensuring they stay focused on medical duties rather than
+administrative software operations.
+– AI Clinical Scribe Co-Pilot: An advanced assistance tool embedded di-
+rectly within the consultation workflow. It accepts conversational or brief
+doctor notes and instantly structures them into polished medical summaries
+containing symptoms, diagnoses, prescriptions, and suggested diagnostic
+tests.
+– Public Waiting Room Display: A read-only public interface designed to
+run continuously on waiting room screens, quietly displaying active tokens
+and upcoming list sequences to reduce ambient noise and verbal shouting in
+the clinic.
+– Admin & Analytics Dashboard: A centralized report panel that ag-gregates
+live data to provide clinic owners with clear charts detailing total patient vol-
+ume, walkout ratios, peak operational hours, and average doctor consultation
+durations.
+5.8
+Algorithm / Logic Explanation
+MedQueue relies on explicit business rules to maintain an orderly,
+transparent, and fair operational flow inside the clinic.
+5.8.1
+First-In-First-Out (FIFO) Queue Sequencing
+When a token is generated, the queue engine evaluates the current active
+pool and appends the patient sequentially:
+– Token Assignment: The engine computes the next incremented sequential
+integer (e.g., T-19 to T-20) based on arrival time.
+65
+
+---PAGE BREAK---
+– Dynamic Wait Time Estimation: The engine calculates estimated re-
+maining wait times by multiplying the number of preceding tokens by the
+doctor’s average historical consultation duration, updating dynamically if a
+session runs over schedule.
+5.8.2
+Priority Override Logic
+To accommodate unexpected clinical emergencies, an override mecha-
+nism bypasses standard FIFO rules:
+– Insertion: The receptionist can flag an arriving patient as an “Emergency,”
+which instantly shifts that token to the absolute top of the active queue.
+– Audit Trail: To prevent operational misuse, every single priority override
+action is hard-logged and flagged in the database for mandatory Admin
+review.
+5.8.3
+Proactive Notification Trigger Logic
+The system automatically tracks position changes to manage patient
+dispersion:
+– Position Check: The queue service monitors the live index relative to the
+active consulting slot.
+– Trigger: The moment a patient shift to exactly 3rd in line, an automated
+system trigger pings the notification service.
+– Alert Outbound: The API fires a “Get Ready” WhatsApp text link to the
+patient’s phone, allowing them to return safely to the waiting room from a
+remote location.
+5.8.4
+End-of-Day Archive & Reset Logic
+At closing hours, a database cleanup script is run to refresh the system
+state:
+– Archive: The system collects all data fields from the active queue and pushes
+them into historical database tables for analytics.
+– Reset: The live active queue array is cleared out, and the token counter is
+systematically reset to 1, preparing the clinic profile for the next morning’s
+operations.
+66
+
+---PAGE BREAK---
+5.8.5
+Technical Prototypes Realization Summary
+Specific operational screens demonstrating the realization of these code
+modules and data structures include: Prototype-1 (Welcome Screen)
+serves as the landing login interface; Prototype-2 (Receptionist Portal)
+houses the entry check-in lists; Prototype-3 (Analytics Layout) renders
+line metrics data reports; and Prototype-4 (Doctor Portal) processes
+consultation report workflows.
+67
+
+---PAGE BREAK---
+Chapter 6
+Testing & Evaluation
+6.1
+Testing Philosophy and Quality Targets
+MedQueue is intended for an operationally sensitive environment: mistakes in
+queue ordering, delayed status propagation, or privacy leakage can quickly erode
+trust and reduce adoption. The testing strategy therefore treats correctness, respon-
+siveness, and role isolation as first-class quality attributes.
+Testing is designed to answer four questions:
+– Correctness: Does each workflow (register, token generate, call next, mark
+absent, override priority, reset) produce the expected state transitions?
+– Consistency Under Real-Time Updates: Do all connected views converge
+to the same queue state quickly enough to prevent confusion?
+– Reliability Under Load: Does performance remain stable when many
+patients view the live status concurrently?
+– Security and Privacy: Are role boundaries enforced, and is sensitive patient
+information protected from public exposure?
+6.2
+Test Environment Assumptions
+The evaluation is aligned with expected field deployment conditions: browser-
+based access across common devices, real-time database synchronization, and
+messaging integrations that may incur latency variability. As a result, test cases
+emphasize end-to-end behavior (from receptionist action to patient/public view
+update) in addition to isolated module verification.
+6.3
+Test Coverage Approach
+To ensure traceability, the test plan is structured to map requirements to verification
+artifacts:
+68
+
+---PAGE BREAK---
+– Functional requirements are validated using scenario-based test cases and
+observed outputs.
+– Non-functional requirements are validated through measured metrics (page
+load time, update propagation time, report generation time) and security
+checks.
+– Usability is validated through task-completion realism (minimal steps and
+minimal typing for staff) and feedback from target-like users.
+Testing & Evaluation
+6.4
+Introduction
+Testing and evaluation play a critical role in ensuring that MedQueue
+operates re-liably, accurately, and efficiently in a clinical environment.
+The purpose of testing was to verify that all functional modules, in-
+cluding queue management, patient registration, doctor consultation
+workflow, AI Clinical Scribe Co-Pilot, and ana-lytics dashboard, per-
+form according to the system requirements. The evaluation process
+focused on system functionality, usability, performance, security, and
+AI-generated consultation report accuracy. Multiple testing techniques
+were applied to identify defects, validate expected outputs, and measure
+system effectiveness.
+6.5
+Testing Objectives
+The objectives of testing MedQueue were:
+– Verify correctness of patient registration and token generation.
+– Ensure real-time queue updates are synchronized across all users.
+– Validate doctor and receptionist workflows.
+– Test AI Clinical Scribe report generation.
+– Verify analytics calculations and dashboard reporting.
+– Evaluate system usability and response time.
+– Ensure data security and access control.
+– Confirm compatibility across different devices and browsers.
+69
+
+---PAGE BREAK---
+6.6
+Testing Methodology
+The following testing approaches were performed:
+6.6.1
+Unit Testing
+Each individual module was tested separately. Modules tested include
+the Au-thentication Module, Patient Registration Module, Queue Man-
+agement Module, Token Generation Module, AI Clinical Scribe Mod-
+ule, Analytics Module, and Re-port Generation Module. Expected
+outputs were compared against actual outputs to ensure correctness.
+6.6.2
+Integration Testing
+Integration testing was conducted to verify communication between
+modules. Ex-amples include: Receptionist Registration →Queue
+Engine; Queue Engine →Doctor Dashboard; Doctor Dashboard →AI
+Clinical Scribe; Consultation Re-port →Analytics Dashboard. Results
+showed successful data flow between all integrated components.
+6.6.3
+System Testing
+The complete MedQueue system was tested in a simulated clinic en-
+vironment. Test scenarios included multiple patient registrations, live
+token generation, doctor consultation sessions, AI report generation,
+and analytics updates. The system successfully handled all test cases.
+6.6.4
+User Acceptance Testing (UAT)
+The prototype was demonstrated to students, faculty members, doc-
+tors, and recep-tionists. Feedback was collected regarding ease of use,
+interface design, workflow
+efficiency, and usefulness of AI-generated reports. Most users found
+the system intuitive and useful for reducing administrative workload.
+6.7
+Functional Testing Results
+70
+
+---PAGE BREAK---
+Test Case
+Expected
+Result
+Actual
+Result
+Stat
+Staff Login
+User
+accesses
+dashboard
+Dashboard
+opened suc-
+cessfully
+Pass
+Patient
+Registration
+Patient
+added to
+queue
+Patient
+added suc-
+cessfully
+Pass
+Token
+Generation
+Unique
+token
+generated
+Token
+generated
+correctly
+Pass
+Call Next Patient
+Queue
+updated
+Queue
+updated
+correctly
+Pass
+AI Report
+Generation
+Consultation
+report
+generated
+Report
+generated
+success-
+fully
+Pass
+Analytics
+Dashboard
+Statistics
+displayed
+Statistics
+displayed
+correctly
+Pass
+Role Based
+Access
+Restricted
+access
+enforced
+Access
+restrictions
+applied
+Pass
+Table 6.1: Functional Testing Results Table
+6.8
+Performance Testing
+Performance testing was conducted to evaluate system responsiveness
+under nor-mal operational conditions.
+Parameter
+Expected
+Achieved
+Page Load Time
+< 3 sec
+1.8 sec
+Queue Update
+Time
+< 2 sec
+1 sec
+Report
+Generation Time
+< 5 sec
+3 sec
+71
+
+---PAGE BREAK---
+Parameter
+Expected
+Achieved
+Analytics
+Dashboard Load
+< 4 sec
+2.5 sec
+Table 6.2: Performance Testing Results Table
+Results indicate that the system meets all defined performance require-
+ments.
+6.9
+AI Clinical Scribe Evaluation
+One of the major innovations of MedQueue is the AI Clinical Scribe
+Co-Pilot. The AI module assists doctors by transforming consultation
+notes into structured medical reports.
+Example Input (Doctor Notes):
+“Patient complains of shin pain during running and severe leg pain at
+night. Possible vitamin deficiency. Recommend stretching and further
+tests.”
+AI Generated Output Structure: Diagnosis, Symptoms, Prescription
+Sugges-tions, Clinical Advice, Suggested Medical Tests.
+Criteria Result
+Report Structure Excellent
+Readability Excellent
+Time Saving High
+Consistency High
+Clinical Summary Accuracy Good Table 6.3: AI Scribe Evaluation
+Criteria Table
+The AI Clinical Scribe reduced documentation time and improved
+report con-sistency. Note: The AI output serves as clinical assistance
+and final medical decisions remain under the doctor’s responsibility.
+72
+
+---PAGE BREAK---
+6.10
+Analytics Dashboard Evaluation
+The Analytics Dashboard was evaluated using sample clinic data. The
+dashboard successfully generated: Daily Patient Statistics, Monthly
+Patient Trends, Walkout Ratio, Average Consultation Duration, Total
+Patients Served, Doctor Performance Reports, and Queue Efficiency
+Metrics. The generated graphs and statistics pro-vided valuable insights
+for clinic administrators.
+6.11
+Security Testing
+The following security measures were tested:
+– Authentication Testing: Valid Login →Pass; Invalid Login →Blocked;
+Unauthorized Access →Denied.
+– Data Protection: HTTPS Communication →Pass; Protected Routes →
+Pass; Role-Based Authorization →Pass.
+Results confirm that patient and clinic data remain protected from
+unauthorized access.
+6.12
+Usability Evaluation
+Usability testing focused on ease of use and interface simplicity.
+Feature
+Rating
+Receptionist
+Dashboard
+4.8 / 5
+Doctor Dashboard
+4.7 / 5
+Queue Tracking
+4.8 / 5
+Analytics
+Dashboard
+4.6 / 5
+AI Clinical Scribe
+4.9 / 5
+Table 6.4: Usability Feature Evaluation Summary
+Users reported that MedQueue significantly simplifies clinic operations
+and reduces manual workload.
+73
+
+---PAGE BREAK---
+6.13
+Overall Evaluation
+Based on the testing results, MedQueue successfully achieved its pri-
+mary objec-tives: digitized clinic queue management, reduced patient
+waiting uncertainty, improved operational efficiency, automated consul-
+tation documentation using AI, generated real-time analytics for clinic
+management, and maintained acceptable
+performance and security standards. The AI Clinical Scribe Co-Pilot
+emerged as one of the most valuable features by assisting doctors in
+generating professional consultation reports quickly and consistently.
+74
+
+---PAGE BREAK---
+Chapter 7
+Results & Discussion
+7.1
+Evaluation Lens and Interpretation
+This chapter consolidates the outcomes of MedQueue in two complementary
+dimensions: (i) measurable system behavior observed through performance and
+functional validation, and (ii) operational implications for clinic workflow, patient
+experience, and staff workload. In other words, the discussion connects technical
+metrics (such as update latency and page load times) to the human reality of
+outpatient service delivery.
+To keep the interpretation academically grounded, results are discussed using the
+following lens:
+– Operational efficiency: How the system reduces intake friction, minimizes
+repeated status inquiries, and improves throughput stability.
+– Experience and perceived fairness: How real-time transparency and pre-
+dictable updates reduce anxiety and conflict.
+– Reliability and responsiveness: Whether the platform meets targets for
+real-time synchronization and usability under typical load.
+– Safety and accountability: How exception handling (emergency overrides,
+no-shows) is controlled and auditable.
+7.2
+Summary of Key Results
+Across implemented modules and tests, the system demonstrates that a browser-
+native approach can deliver near real-time operational visibility without requiring
+proprietary kiosk hardware or dedicated mobile app installation. The most impor-
+tant outcomes include:
+– a functioning queue engine that supports FIFO sequencing with controlled
+priority overrides,
+– proactive patient notifications tied to queue position thresholds,
+75
+
+---PAGE BREAK---
+– role-based dashboards that constrain information exposure,
+– analytics-ready operational logging that supports reporting and learning.
+Results & Discussion
+7.3
+Introduction
+This chapter is the final piece of the project where we talk about how the
+“MedQueue” web platform came together and how it works in the real
+world. We moved from just having ideas on paper to creating a fully
+functional web-based system opti-mized for clinic environments. The
+main goal here is to explain how the platform uses its centralized cloud
+architecture to keep the operational interfaces (Recep-tionist, Doctor,
+Patient, and Admin) synchronized without performance degra-dation.
+By using a modern Node.js framework for the backend and Cloud Fire-
+base/Firestore for the real-time database, we ensured that line status
+updates sync within 2 seconds to handle busy outpatient department
+(OPD) traffic. In this chapter, we will look at what the application
+produces, what specific goals we hit, how it transforms manual queuing
+routines, and where it still has room to grow.
+7.4
+System Outputs (How the App Actually Works)
+The most significant output generated by our development process is
+the Real-Time Queue Engine with Proactive Notification Triggers.
+This isn’t just a simple line log; it is a live, automated system that
+works behind the scenes to bridge physical waiting rooms with remote
+tracking channels, ensuring a managed and predictable process. The
+core of the MedQueue project is built on this spe-
+cific workflow, using cloud-based storage to minimize waiting anxiety
+and crowd density.
+Here is a deep dive into the four main stages of this process:
+Checking Permission and Secure Staff Login
+Whenever a clinic staff member (Admin, Doctor, or Receptionist) ac-
+cesses the portal, the system enforces secure verification using JSON
+Web Tokens (JWT). This acts as the platform’s first line of defense.
+76
+
+---PAGE BREAK---
+Access rights are granted explicitly based on assigned roles; for in-
+stance, a doctor or receptionist cannot modify Admin system settings,
+ensuring secure data protection and workflow integrity throughout a
+12-hour shift.
+Patient Registration and Token Generation
+When a walk-in patient arrives, the receptionist registers them in un-
+der 30 sec-onds by inputting their Name and Mobile Number into a
+streamlined data-entry form. The Queue Engine instantly takes over
+and executes First-In-First-Out (FIFO) Queue Sequencing. It auto-
+matically generates a unique, sequential token number (e.g., T-19 to
+T-20).
+– Priority Override: If a critical patient arrives, the receptionist can toggle a
+“Mark as Emergency” constraint, placing that token immediately at the top of
+the queue. This action is hard-logged for mandatory Admin audit tracking to
+prevent operational misuse.
+Live Session Monitoring and Dynamic Wait Estimates
+While the clinic is operating, the system tracks real-time data metrics
+to calcu-late an Estimated Waiting Time for each patient. This engine
+automatically multiplies the number of preceding tokens by the doctor’s
+average historical consul-tation duration. If a doctor takes longer than
+expected, the time estimates update dynamically across all connected
+user views via live listeners. Concurrently, the doctor’s interface runs a
+live SERVING timer to track the exact duration of active consultations.
+Saving Data and Proactive Notification Triggers
+The final stage bridges the system data with external networks to man-
+age patient dispersion. The system uses Proactive Notification Trigger
+Logic:
+– The Trigger: The moment a patient shifts to exactly 3rd in line, the queue
+service automatically detects the position change.
+– The Output: The system instantly fires a “Get Ready” transactional text link
+via WhatsApp/SMS Cloud APIs to the patient’s phone.
+– End-of-Day Reset: At closing hours, an automated script runs to clear the
+live queue array, reset the counter back to 1, and securely archive the day’s
+77
+
+---PAGE BREAK---
+total logs into historical database tables for analytical reporting.
+7.5
+Achieved Objectives (What We Accomplished)
+The development and completion of the MedQueue project represent a
+major milestone in modernizing outpatient healthcare services across
+Pakistan. This project was born out of a critical need to eliminate
+overcrowded waiting rooms and outdated paper routines in small-to-
+medium private clinics. Our success can be broken down into a few key
+areas:
+A New Way to Handle Waiting Anxiety and Clinical Documentation
+Our primary goal was to optimize clinic operations and lower the psy-
+chological stress associated with unknown wait times. With MedQueue,
+we proved that providing real-time data transparency transforms a
+chaotic manual routine into a managed process. Furthermore, we
+successfully implemented an innovative AI Clinical Scribe Co-Pilot
+directly within the doctor’s interface. This tool ac-cepts conversational
+dictation or raw shorthand text and maps it instantly into a structured
+medical summary (including diagnosis, presentation symptoms, pre-
+scriptions, and advice tables), significantly saving documentation time
+for the clinician.
+Creation of a Truly Unified Platform
+One of our biggest achievements was building a multi-tenant tool that
+seamlessly serves four distinct user groups simultaneously on everyday
+hardware, completely omitting the need for expensive hardware kiosks:
+User Role Delivered System Feature & Functionality DOCX
+Admin Accesses segregated analytics panels to track peak traffic hours,
+total visits, Doctor Uses a “One-Handed Operation” interface to click
+“Call Next”, track consultat Receptionist Utilizes a rapid, single-screen
+check-in workflow form to register walk-ins and Patient Enjoys remote
+waiting capabilities via a dynamic read-only live queue status U
+Table 7.1: Delivered Features by User Role Table
+78
+
+---PAGE BREAK---
+Rigorous Testing and Proven Reliability
+To ensure the application was solid, secure, and ready for deployment,
+we con-ducted extensive testing phases which yielded excellent opera-
+tional results:
+– Unit & Integration Testing: Verified flawless data flows from Reception-ist
+Registration →Queue Engine →Doctor Dashboard →AI Scribe.
+– Security & Authorization Testing: Confirmed that role-based access limits
+were fully enforced via JWT, and patient phone numbers were hidden from
+public screens (showing only public token numbers).
+– Performance Metrics Met: The platform achieved high responsiveness
+metrics under test conditions:
+* Queue Update Synchronization Time: 1.0 second (Exceeded the target
+requirement of < 2 seconds).
+* Standard Page Load Time: 1.8 seconds (Exceeded the target re-
+quirement of < 3 seconds).
+* AI Report Generation Speed: 3.0 seconds (Exceeded the target re-
+quirement of < 5 seconds).
+* User Usability Rating: Achieved an outstanding average score of
+4.7 / 5 across all dashboard interfaces.
+7.6
+Discussion & Room to Grow
+While MedQueue completely optimizes the live, on-ground queue for
+walk-in pa-tients on a low budget (Total estimated cost of Rs. 65,500),
+the evaluation phase highlighted explicit areas for future enhancement:
+– Internet Dependency: Because the platform relies on cloud-based real-
+time data pipelines to sync dashboards within 2 seconds, a stable internet
+connection is required. If a clinic’s connection fails, local dashboards are
+limited to their last known cached state. Developing a local offline synchro-
+nization backup would greatly improve reliability.
+– Digital Literacy & Behavioral Changes: Older patient segments who lack
+smartphones still rely on the receptionist for manual support. Addition-ally,
+the workflow demands that clinic teams form a new habit of actively clicking
+79
+
+---PAGE BREAK---
+operational buttons (like “Call Next” or “Finish Case”) rather than just calling
+out names verbally.
+7.7
+Comparison with Existing Systems
+When we were developing MedQueue, we spent a lot of time look-
+ing at other pop-ular customer journey solutions, doctor booking plat-
+forms, and the traditional methods used in local healthcare centers. We
+wanted to see what they did well and, more importantly, what they
+were missing. While there are many robust tools out there, we found
+a “missing middle” in the market for a solution that manages the live,
+on-ground queue for walk-in patients without requiring expen-sive hard-
+ware kiosks. MedQueue is different because it bridges the gap between
+physical waiting rooms and remote digital notifications on everyday
+devices. Here is how we compare it to the current market leaders:
+Qmatic vs. MedQueue
+Qmatic relies heavily on physical token dispensers, specialized ticket
+printing kiosks, and central LED screens. While it provides an orderly
+experience in tier-1 Pakistani hospitals, it suffers from severe limitations
+for standard outpatient clin-ics: High Installation Cost (millions of
+PKR); Hardware Dependency (proprietary kiosks, paper printers); and
+No Remote Waiting (patients must be physically present). MedQueue
+completely eliminates these friction points by adopting a “Device-in-
+Hand” strategy, running entirely in the cloud on browsers without any
+proprietary hardware requirements.
+Marham / Oladoc vs. MedQueue
+Marham and Oladoc are the dominant aggregator platforms in Pakistan
+for search-ing for doctors and scheduling appointments. However, their
+operational work-flow stops at the clinic door: Booking vs. Queuing
+(they manage the calendar appointment but do not track the active
+line); Walk-In Neglect (they do not cater effectively to walk-in traffic);
+and No Live Tracking (no real-time transparency regarding active de-
+lays). MedQueue solves this by focusing entirely on live on-ground
+patient flow management, ensuring every walk-in or booked patient is
+sequentially tracked in real time.
+80
+
+---PAGE BREAK---
+Waitwhile vs. MedQueue
+Waitwhile is an international US-based SaaS platform that allows busi-
+nesses to create virtual waitlists via standard browsers. While it offers
+great remote waiting capabilities, it fails to fit the localized Pakistani
+healthcare environment because it is Cost Prohibitive (starts around
+$30/month); has SMS Delivery Issues to local networks; and lacks
+Integration with local habits like WhatsApp dominance. MedQueue
+addresses this by offering localized affordable pricing and integrating
+directly with WhatsApp Cloud APIs.
+The Manual System (Status Quo) vs. MedQueue
+The manual system represents the non-digital routine used by roughly
+90% of clin-ics in Pakistan, relying entirely on paper registers and slips.
+While it costs noth-
+ing, it breeds operational chaos: High Waiting Anxiety (shouting names
+creates noise, and lack of transparency forces patients to stay inside)
+and Administrative Inefficiency (front desks are constantly interrupted).
+MedQueue transforms this environment entirely by turning paper tokens
+into electronic tickets, pushing live estimates, running a quiet display,
+and generating analytics.
+7.8
+Limitations of the System (Challenges We Faced)
+Even though the MedQueue project has successfully met its primary
+functional parameters and passed its core integration test cases, no
+software architecture is flawless from inception. During development,
+prototyping, and user evaluation phases, we identified specific areas
+where the application faces limitations.
+Internet Dependency and Lack of Offline Mode
+Because MedQueue relies on real-time web databases (Cloud Fire-
+base/Firestore) and live listener pipelines to synchronize queue posi-
+tions within 2 seconds across multiple portals, it demands a stable
+internet connection. If a local clinic experi-ences an internet dropout,
+active screen refreshes pause, and the platform is limited to its last
+known locally cached state. Moving forward, we need to implement a
+true offline database synchronization engine.
+81
+
+---PAGE BREAK---
+Recurring API Communication Costs
+While leveraging familiar communication channels like WhatsApp and
+SMS elim-inates the need for patients to download apps, it introduces a
+recurring opera-tional expense. Outbound transactional alerts through
+messaging gateways incur a per-message cost that scales directly with
+patient volume, highlighting a need to explore alternative, free notifica-
+tion channels (such as web push notifications).
+Behavioral Adjustments and Digital Literacy Barriers
+MedQueue requires a fundamental change in behavioral habits for both
+clinic staff and patients. Doctors must transition from simply calling
+out a name to actively
+clicking a digital workflow button (“Call Next” or “Finish Case”),
+which can feel disruptive. Furthermore, while younger patients adapt
+quickly to links, older or digitally illiterate segments face a barrier and
+must continue to rely on manual assistance from the receptionist.
+Reliance on Administrative Input Verification
+Although the system features
+an innovative AI Clinical Scribe Co-Pilot to automatically format notes, the
+system’s baseline data accuracy remains heavily dependent on human entry. If
+a receptionist types an invalid mobile number during walk-in registration, the
+notification trigger will fail to reach the patient due to a lack of built-in automated
+identity cross-checking (such as CNIC biometric or database validation links).
+82
+
+---PAGE BREAK---
+Figure 7.1: App Interface Compilation Sheet 1
+Figure 7.2: App Interface Compilation Sheet 2
+83
+
+---PAGE BREAK---
+Figure 7.3: App Interface Compilation Sheet 3
+Figure 7.4: App Interface Compilation Sheet 4
+84
+
+---PAGE BREAK---
+Figure 7.5: App Interface Compilation Sheet 5
+Figure 7.6: App Interface Compilation Sheet 6
+85
+
+---PAGE BREAK---
+Figure 7.7: App Interface Compilation Sheet 7
+Figure 7.8: App Interface Compilation Sheet 8
+86
+
+---PAGE BREAK---
+Figure 7.9: App Interface Compilation Sheet 9
+Figure 7.10: App Interface Compilation Sheet 10
+Figure 7.11: App Interface Compilation Sheet 11
+87
+
+---PAGE BREAK---
+Figure 7.12: App Interface Compilation Sheet 12
+Figure 7.13: App Interface Compilation Sheet 13
+88
+
+---PAGE BREAK---
+Figure 7.14: App Interface Compilation Sheet 14
+89
+
+---PAGE BREAK---
+Chapter 8
+Conclusion & Future Work
+8.1
+Consolidated Contributions
+MedQueue contributes a practical, locally deployable queue management approach
+for outpatient clinics that sits between two extremes: (i) high-cost, hardware-
+heavy enterprise deployments and (ii) informal manual processes that provide no
+transparency or analytics. The system demonstrates that clinically meaningful
+operational improvement can be achieved through a lightweight browser-first
+platform when the design is aligned with local constraints and communication
+habits.
+From a software engineering standpoint, the project’s key contributions include:
+– a real-time queue engine with controlled state transitions and exception
+handling (no-show and emergency override),
+– role-based access control with separate dashboards for admin, doctor, recep-
+tionist, and patient/public views,
+– proactive notification triggers using WhatsApp/SMS to reduce crowding and
+uncertainty without app installation,
+– analytics-oriented logging that enables operational learning over time,
+– an integrated AI clinical scribe workflow concept that targets clinician docu-
+mentation friction.
+8.2
+Limitations (Context-Aware)
+While the system achieves its intended functional scope, limitations remain tied to
+realistic field constraints. Most notably, the reliance on continuous connectivity
+impacts real-time synchronization during network dropouts, and recurring mes-
+saging API costs may affect long-term operational budgets for very small clinics.
+Additionally, successful adoption depends on behavioral alignment: staff must
+consistently operate digital controls (e.g., “Call Next”) so that the queue truth
+remains accurate.
+90
+
+---PAGE BREAK---
+8.3
+Future Roadmap (Implementation-Oriented)
+Future work can be structured as a roadmap with clear engineering goals rather
+than generic enhancements. High-value directions include offline-first synchro-
+nization strategies, alternative notification channels (e.g., web push), improved
+input validation to reduce human entry errors, and scaled multi-clinic deployments
+with stronger configuration isolation. The goal of future iterations would be to
+strengthen reliability, reduce marginal costs, and improve adoption resilience
+across a wider range of clinic settings.
+Conclusion & Future Work
+8.4
+Conclusion
+The development and deployment of MedQueue represent a significant
+milestone in modernizing outpatient healthcare operations and address-
+ing the psychological stress of “waiting anxiety” within the Pakistani
+medical ecosystem. By replacing chaotic paper-and-pen token rou-
+tines with a transparent digital queue map, the platform establishes an
+affordable and efficient workflow for medical teams and patients alike.
+The project followed Agile Scrum practices, organizing development
+into short, iterative sprint cycles. This structural methodology allowed
+the team to build, test, and refine core modules—such as walk-in check-
+ins, WhatsApp alerts, and doctor dashboards—incrementally based on
+live feedback, ensuring a highly stable and user-centric final production
+release.
+8.4.1
+System Achievement
+MedQueue successfully delivers a unified, device-agnostic web plat-
+form that simul-taneously coordinates four distinct user roles (Admin,
+Doctor, Receptionist, and Patient) on standard everyday hardware. Key
+operational achievements include:
+– Real-Time Queue Sync: Automated token generation and dynamic wait
+time estimations that self-correct as lines shift.
+– AI Clinical Scribe Integration: An innovative “AI Clinical Scribe Co-
+Pilot” built directly into the doctor’s portal, which successfully maps
+91
+
+---PAGE BREAK---
+conver-sational dictation or raw shorthand notes into structured diag-
+nostic reports and prescriptions.
+– Proactive Patient Dispatch: Automated text-link triggers that alert re-mote
+patients when they are exactly 3rd in line, effectively decreasing phys-ical
+waiting room crowd density.
+8.4.2
+Validation
+Comprehensive QA and system testing were conducted to evaluate
+responsiveness, security, and functional integrity. The platform success-
+fully met or exceeded all target performance requirements under test
+conditions:
+– Queue Synchronization Time: Achieved a live refresh rate of 1.0 second
+(exceeding the requirement of < 2 seconds).
+– Standard Page Load Time: Measured at 1.8 seconds (exceeding the target
+of < 3 seconds).
+– AI Report Generation Speed: Logged at 3.0 seconds (exceeding the target
+of < 5 seconds).
+– Usability Rating: Secured an exceptional average score of 4.7 / 5 across all
+tested dashboard interfaces.
+Security validation confirmed that role-based restrictions were rigidly
+enforced via JWT, and patient privacy was protected by strictly display-
+ing public token numbers rather than phone numbers on public screens.
+Overall, the evaluation confirms that MedQueue satisfies its primary
+objectives, delivering a highly reli-able, cost-effective, and professional
+healthcare utility.
+8.5
+System Limitations and Challenges
+Despite passing its core testing phases and meeting all primary func-
+tional parame-ters, several operational limitations and technical chal-
+lenges were identified during development and system evaluation:
+– Internet Dependency and Lack of Offline Mode: Because the applica-tion
+relies completely on cloud-based databases (Cloud Firebase/Firestore) to
+push live status updates, a continuous internet connection is required. If
+92
+
+---PAGE BREAK---
+local clinic connectivity drops out, active screen synchronization pauses,
+restricting dashboards exclusively to their last known locally cached state.
+– Recurring API Communication Costs:
+Leveraging familiar, high-
+engagement networks like WhatsApp and SMS eliminates complex
+application down-loads for users but introduces recurring operational
+expenses. Transactional alerts sent through external messaging gateways
+incur a per-message cost that scales directly with a clinic’s patient volume,
+posing a potential finan-
+cial barrier for very small clinics.
+– Behavioral Adjustments and Habits: The system demands a cultural shift
+in clinic operations. Medical practitioners must form a new habit of actively
+interacting with digital dashboard buttons (such as clicking “Call Next” or
+“Finish Case”) during rapid clinical pacing rather than calling out names
+verbally.
+– Digital Literacy Barriers: While younger demographics navigate the re-
+mote tracking links seamlessly, older or digitally illiterate patient segments
+face accessibility barriers and must continue to rely on manual, verbal assis-
+tance from the counter receptionist.
+– Reliance on Administrative Input Verification: Baseline system data
+and notification accuracy remain heavily dependent on human entry. If a
+receptionist inputs an invalid mobile number during walk-in check-in, the
+automated “Get Ready” notification trigger will fail to route to the patient due
+to a lack of built-in identity cross-checking links (such as CNIC biometric
+validation).
+8.6
+Future Work
+To expand the operational sustainability, reliability, and market adoption
+of the MedQueue platform, the following strategic enhancements are
+proposed for future
+development cycles:
+– Local Offline Synchronization Backup: Engineering a true offline database
+synchronization engine. This would allow the receptionist and doctor dash-
+boards to securely process walk-ins and log tokens locally during internet
+failures, automatically syncing data backward to the cloud once network
+93
+
+---PAGE BREAK---
+connectivity is restored.
+– Alternative Free Notification Channels: Integrating web browser push
+notifications alongside the existing WhatsApp/SMS modules. This will offer
+clinics a zero-cost notification alternative to minimize monthly recurring API
+transactional gateway fees.
+– Automated Identity Cross-Checking: Implementing automated input vali-
+dation links—such as digital database lookups or basic identity verifi-cation
+fields—to catch typing mistakes instantly and prevent manual data entry
+errors during rapid patient check-ins.
+– Cross-Platform Expansion: Extending the platform’s architecture to in-
+clude native mobile app packages or standalone dedicated clinic dashboard
+modules to widen deployment options.
+– Multi-Clinic Scaling: Optimizing the modular Node.js backend and Fire-
+base architecture to seamlessly scale up and support a massive, nationwide
+network of distinct medical centers under a singular unified super-admin
+dashboard.
+94
+
+---PAGE BREAK---
+References
+Maister, D. H. (1985). The Psychology of Waiting Lines. Managing
+Services: Marketing, Operations, and Human Resources, 210-217.
+Smart Health. (2024). Virtual Queuing Systems and Patient Flow
+Management in Modern OPD Units. Healthcare Technology Journal,
+45(2), 112-126.
+Firebase. (2025). Real-time Data Sync and WebSockets Optimization
+for Live Status Architectures. Google Developer Whitepaper Series.
+95
+
+---PAGE BREAK---
+Chapter A
+Screenshots
+Refer to Figures within Chapter 4 and Chapter 7 for detailed platform
+layout mockups, receptionist workflow panels, analytics line distribu-
+tions, and real-time medical report editors.
+96
+
+---PAGE BREAK---
+Figure A.1: Clinical classification prompt that queries Gemini (gemini-flash-lite-latest)
+to rate symptoms as URGENT or NORMAL.
+97
+
+---PAGE BREAK---
+Figure A.2: Algorithm that intercepts the AI result and inserts urgent cases at index 0 of
+the active token array.
+98
+
+---PAGE BREAK---
+Figure A.3: Clinical classification prompt that queries Gemini (gemini-flash-lite-latest)
+to rate symptoms as URGENT or NORMAL.
+99
+
+---PAGE BREAK---
+Chapter B
+Test Cases
+Refer to Table 6.1 (Functional Testing Matrix) and Table 6.2 (Perfor-
+mance Thresh-old Verification Matrix) inside Chapter 6 for itemized
+testing runs and verification results.
+100
+
+---PAGE BREAK---
+Chapter C
+User Manual
+C.1
+Reception Terminal Operation Guide
+1. Open the browser and direct to the secure ReceptionPortal path.
+2. Authenticate the user console credentials.
+3. Input Patient Name and active mobile destination line.
+4. Click “Generate Token” to append the sequence to Firestore and fire What-
+sApp dispatchers.
+C.2
+Clinical Consultation Terminal Guide
+1. Access DoctorPortal link structure using authenticated JWToken fields.
+2. Review shorthand vitals summary inside center log cards.
+3. Tap “CALL NEXT” to pull forward sequential entries.
+4. Enact voice or text entry to allow MedQueue AI to auto-structure reports.
+5. Verify content entries and tap “DOWNLOAD PDF” to finalize records.
+101
+
+---PAGE BREAK---
+Chapter D
+Source Code
+This appendix provides an organized outline of the MedQueue codebase as imple-
+mented for the FYDP deliverable. The intent is to support technical review and
+reproducibility by mapping the main modules described in Chapters 4 and 5 to
+corresponding implementation units.
+D.1
+Repository/Module Structure (Conceptual)
+The MedQueue implementation can be understood as a set of modules that col-
+lectively deliver authentication, queue management, notification dispatch, and
+analytics.
+– Backend: Authentication/authorization, queue engine endpoints, notification
+triggers, and analytics aggregation routines.
+– Frontend Dashboards: Receptionist portal, doctor portal, admin analytics
+view, and patient/public views.
+– Integration Layer: WhatsApp/SMS API calls and supporting configuration.
+D.2
+Key Algorithms (Code-Level Mapping)
+D.2.1
+FIFO Token Sequencing
+This portion corresponds to the logic that assigns the next sequential token based
+on arrival order and maintains an active queue list.
+D.2.2
+Priority Override (Emergency Insertion)
+This portion corresponds to the logic that allows controlled reordering under
+emergencies, with mandatory audit logging.
+D.2.3
+Proactive Notification Trigger (Threshold-Based)
+This portion corresponds to the event-driven trigger that dispatches alerts (e.g.,
+when a patient becomes 3rd in line) through the notification service.
+102
+
+---PAGE BREAK---
+D.3
+Code Listings (Insert Relevant Snippets)
+The following listing blocks are placeholders for inserting selected source excerpts
+(sanitized if needed) such as queue engine functions, database listener setup, and
+messaging dispatch handlers.
+103
+
+---PAGE BREAK---

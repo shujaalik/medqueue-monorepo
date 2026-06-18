@@ -45,19 +45,25 @@ const analyzeEmergency = async (symptoms) => {
       generationConfig: { 
         responseMimeType: "application/json", 
         temperature: 0.1,
-        maxOutputTokens: 80
+        maxOutputTokens: 100
       }
     });
 
     const prompt = `
       You are a medical triage assistant. Analyze the following patient symptoms and determine if it's an emergency.
-      Return exactly this JSON:
+      Return exactly this JSON structure:
       {
         "priority": "URGENT" or "NORMAL",
+        "severityScore": number (1 to 10 scale where 10 is most critical/life-threatening and 1 is least severe. Use 0 for NORMAL priority),
         "reason": "short explanation (maximum 1 sentence, highly concise)"
       }
       
-      URGENT examples: chest pain, difficulty breathing, severe bleeding, unconsciousness, stroke symptoms, high fever in infants.
+      URGENT examples:
+      - Score 10: Chest pain, active cardiac arrest, unconsciousness, severe difficulty breathing, stroke.
+      - Score 8: Severe active bleeding, compound fractures, head trauma with vomiting, severe abdominal pain.
+      - Score 6: High fever in infants, moderate breathing struggle, deep cuts needing immediate stitches.
+      - Score 4: Mild allergic reaction, minor burns.
+      
       Symptoms: "${symptoms}"
     `;
 
@@ -66,7 +72,7 @@ const analyzeEmergency = async (symptoms) => {
     return JSON.parse(response.text());
   } catch (error) {
     console.error("Triage AI Error:", error);
-    return { priority: "NORMAL", reason: "AI triage unavailable" };
+    return { priority: "NORMAL", severityScore: 0, reason: "AI triage unavailable" };
   }
 };
 

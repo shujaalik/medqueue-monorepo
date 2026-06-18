@@ -125,6 +125,16 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleToggleUserStatus = async (userId) => {
+    try {
+      const headers = { Authorization: `Bearer ${user.token}` };
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/admin/users/${userId}/toggle`, {}, { headers });
+      fetchAllData();
+    } catch (err) {
+      alert('Error toggling staff status');
+    }
+  };
+
   const handleExportPDF = () => {
     if (!stats) return;
     const doc = new jsPDF();
@@ -617,7 +627,10 @@ const AdminDashboard = () => {
                       </div>
                     )}
                   </div>
-                  <button className="text-emerald-600 font-black text-xs uppercase tracking-wider flex items-center group-hover:translate-x-1.5 transition-all">
+                  <button 
+                    onClick={() => { setSelectedClinicId(clinic._id); setActiveTab('analytics'); }}
+                    className="text-emerald-600 font-black text-xs uppercase tracking-wider flex items-center group-hover:translate-x-1.5 transition-all"
+                  >
                     View Details <ChevronRight size={14} className="ml-1" />
                   </button>
                 </div>
@@ -666,9 +679,20 @@ const AdminDashboard = () => {
                         <span className="font-bold text-slate-500">{s.isActive ? 'Active' : 'Suspended'}</span>
                       </div>
                     </td>
-                    <td className="p-6">
-                      <button className="text-slate-400 hover:text-slate-700 transition-colors p-2 hover:bg-slate-100 rounded-lg">
-                        <Settings size={16} />
+                    <td className="p-6 text-right">
+                      <button 
+                        onClick={() => {
+                          if (window.confirm(`Are you sure you want to ${s.isActive ? 'suspend' : 'activate'} ${s.name}?`)) {
+                            handleToggleUserStatus(s._id);
+                          }
+                        }}
+                        className={`text-[9px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl transition-all border ${
+                          s.isActive 
+                            ? 'bg-red-50 border-red-100 text-red-600 hover:bg-red-100' 
+                            : 'bg-emerald-50 border-emerald-100 text-emerald-600 hover:bg-emerald-100'
+                        }`}
+                      >
+                        {s.isActive ? 'Suspend' : 'Activate'}
                       </button>
                     </td>
                   </tr>

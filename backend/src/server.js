@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { initFirebase } = require('./config/firebase');
 const { initWhatsApp } = require('./services/whatsappService');
+const { initQueueMonitor } = require('./services/queueMonitor');
 
 dotenv.config();
 
@@ -15,9 +16,13 @@ connectDB();
 // Initialize Services
 initFirebase();
 initWhatsApp();
+initQueueMonitor();
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
+  origin: (origin, callback) => {
+    // Dynamically allow any origin, reflecting it back to support local IP changes
+    callback(null, true);
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));

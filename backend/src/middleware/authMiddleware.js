@@ -19,15 +19,15 @@ const protect = async (req, res, next) => {
         return res.status(401).json({ message: 'User not found in database' });
       }
       
-      next();
+      return next();
     } catch (error) {
       console.error('Firebase Auth Error:', error);
-      res.status(401).json({ message: 'Not authorized, token failed' });
+      return res.status(401).json({ message: 'Not authorized, token failed' });
     }
   }
 
   if (!token) {
-    res.status(401).json({ message: 'Not authorized, no token' });
+    return res.status(401).json({ message: 'Not authorized, no token' });
   }
 };
 
