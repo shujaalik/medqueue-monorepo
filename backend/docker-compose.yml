@@ -15,8 +15,8 @@ services:
       - FIREBASE_DATABASE_URL=${FIREBASE_DATABASE_URL}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
       - FRONTEND_URL=${FRONTEND_URL}
-      - SENDPK_API_KEY=${SENDPK_API_KEY}
-      - SENDPK_SENDER=${SENDPK_SENDER}
+      - SMS_GATEWAY_USERNAME=${SMS_GATEWAY_USERNAME}
+      - SMS_GATEWAY_PASSWORD=${SMS_GATEWAY_PASSWORD}
     volumes:
       - ./auth_data:/app/.wwebjs_auth
     expose:

@@ -1,39 +1,48 @@
 /**
- * Sends an SMS using the SendPK API Gateway.
+ * Sends an SMS using the new SMS-Gate API Gateway.
  * @param {string} mobile - Recipient mobile number
  * @param {string} message - Message text
  * @returns {Promise<any>}
  */
 const sendSMS = async (mobile, message) => {
   try {
-    const apiKey = process.env.SENDPK_API_KEY || "923316074329-c0bca775-1497-4b58-b1a6-df37765cdfba";
-    const sender = process.env.SENDPK_SENDER || "SenderID";
+    const username = process.env.SMS_GATEWAY_USERNAME || "D5UBP-";
+    const password = process.env.SMS_GATEWAY_PASSWORD || "1vsxknasonkcsl";
     
-    // Clean and format the number for Pakistan (sendpk expects 923xxxxxxxxx format)
+    // Clean and format the number for Pakistan (expects +923xxxxxxxxx format)
     let formattedMobile = mobile.replace(/\s+/g, '').replace(/-/g, '').replace(/\+/g, '');
     if (formattedMobile.startsWith('03')) {
       formattedMobile = '92' + formattedMobile.substring(1);
     }
+    if (!formattedMobile.startsWith('+')) {
+      formattedMobile = '+' + formattedMobile;
+    }
     
-    console.log(`📤 [SMS Service] Attempting to send SMS to: ${formattedMobile}`);
+    console.log(`📤 [SMS Service] Attempting to send SMS to: ${formattedMobile} using SMS-Gate`);
     
-    const url = `https://sendpk.com/api/sms.php?api_key=${apiKey}`;
-    const params = new URLSearchParams();
-    params.append('sender', sender);
-    params.append('mobile', formattedMobile);
-    params.append('message', message);
+    const authHeader = 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64');
+    const url = "https://api.sms-gate.app/3rdparty/v1/messages";
     
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)'
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
       },
-      body: params.toString()
+      body: JSON.stringify({
+        "textMessage": { "text": message },
+        "phoneNumbers": [formattedMobile]
+      })
     });
     
+    const status = response.status;
     const data = await response.text();
-    console.log(`✅ [SMS Service] Gateway Response:`, data);
+    console.log(`✅ [SMS Service] Gateway Response (Status ${status}):`, data);
+    
+    if (status >= 400) {
+      throw new Error(`Gateway returned status ${status}: ${data}`);
+    }
+    
     return data;
   } catch (error) {
     console.error('❌ [SMS Service] Failed to send SMS:', error.message);
