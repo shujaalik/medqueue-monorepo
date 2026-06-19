@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell
 } from 'recharts';
@@ -168,7 +168,7 @@ const AdminDashboard = () => {
       ["Average Consultation", `${stats.summary.avgConsultation} minutes`, "Avg serving time per patient"]
     ];
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 53,
       head: [summaryData[0]],
       body: summaryData.slice(1),
@@ -187,7 +187,7 @@ const AdminDashboard = () => {
       `${d.avgDuration} mins`
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: currentY + 6,
       head: [["Doctor Name", "Patients Served", "Avg Consultation speed"]],
       body: doctorRows.length > 0 ? doctorRows : [["No doctors active in history", "0", "0 mins"]],
@@ -213,7 +213,7 @@ const AdminDashboard = () => {
       new Date(h.date).toLocaleDateString()
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 32,
       head: [["Patient", "Token", "Status", "Assigned Doctor", "Duration", "Date"]],
       body: patientRows.length > 0 ? patientRows : [["No history logged", "-", "-", "-", "-", "-"]],

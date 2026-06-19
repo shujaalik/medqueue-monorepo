@@ -7,3 +7,8 @@ build/
 .wwebjs_cache/
 *.log
 .cache/
+
+# Demo Seeding & Backup Files
+backend/scripts/seedDemoData.js
+backend/scripts/restoreBackup.js
+backend/scripts/backup_patient_history.json
