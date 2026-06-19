@@ -14,7 +14,8 @@ RUN apt-get update \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable \
     PORT=5000 \
-    NODE_ENV=production
+    NODE_ENV=production \
+    TZ=Asia/Karachi
 
 # Create app directory
 WORKDIR /app
